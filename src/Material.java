@@ -1,5 +1,11 @@
 
 public class Material {
+	
+	/**
+	 * Should we have one Material class or should we create multiple classes
+	 * (that may inherit from the Material class) for different types of materials?
+	 */
+	
 	private int materialType;
 	
 	final int TYPE_SPREAD = 0;
