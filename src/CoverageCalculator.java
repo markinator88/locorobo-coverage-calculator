@@ -11,6 +11,7 @@ public class CoverageCalculator {
 		// Added by Doug
 		// Added by Paul
 		// Test Conflict 1
+		// Test Conflict 3
 		// Test Conflict 2
 	}
 
