@@ -9,6 +9,7 @@ public class CoverageCalculator {
 		// TODO Auto-generated method stub
 		JOptionPane.showMessageDialog(null, "Top", "THIS IS NEAT", JOptionPane.WARNING_MESSAGE);
 		// Added by Doug
+		// Added by Paul
 	}
 
 }
