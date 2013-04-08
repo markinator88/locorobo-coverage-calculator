@@ -10,9 +10,6 @@ public class CoverageCalculator {
 	 */
 	public static void main(String[] args) {
 		ProjectManager frame = new ProjectManager();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setPreferredSize(new Dimension(500, 500));
-		frame.pack();
 		frame.setVisible(true);
 	}
 }

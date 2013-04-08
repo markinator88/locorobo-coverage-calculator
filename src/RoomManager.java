@@ -1,4 +1,5 @@
+import javax.swing.*;
 
-public class RoomManager {
+public class RoomManager extends JDialog {
 
 }
