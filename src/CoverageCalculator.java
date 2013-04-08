@@ -13,8 +13,6 @@ public class CoverageCalculator {
 		// Test Conflict 1
 		// Test Conflict 3
 		// Test Conflict 2
-		// this is the third attempt
-		
 	}
 
 }
