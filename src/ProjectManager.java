@@ -1,4 +1,6 @@
+import javax.swing.*;
 
-public class ProjectManager {
 
+public class ProjectManager extends JFrame {
+	
 }
