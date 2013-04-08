@@ -10,9 +10,7 @@ public class CoverageCalculator {
 		JOptionPane.showMessageDialog(null, "Top", "THIS IS NEAT", JOptionPane.WARNING_MESSAGE);
 		// Added by Doug
 		// Added by Paul
-		// Test Conflict 1
-		// Test Conflict 3
-		// Test Conflict 2
+	
 	}
 
 }
