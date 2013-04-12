@@ -1,5 +1,17 @@
 
 public class Report {
-	//This will do the calculations.
+/* From breeze notes.
+ * PorjectManager {
 
+    Report(project);
+
+}
+
+Report {
+    Report(Project p) {
+        //calculatations
+        ReportView(this)
+     }
+}
+ */
 }
