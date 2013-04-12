@@ -11,7 +11,7 @@ public class ProjectManager extends JFrame {
 	public ProjectManager() {
 		setTitle("Coverage Calculator - Project Manager");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 520, 295);
+		setBounds(100, 100, 300, 300);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0};
