@@ -1,18 +1,15 @@
+import java.awt.*;
 import javax.swing.*;
-
+/**
+ * @author Mark Rutledge
+ * @date 4/8/2012
+ */
 public class CoverageCalculator {
-
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		JOptionPane.showMessageDialog(null, "Top", "THIS IS NEAT", JOptionPane.WARNING_MESSAGE);
-		// Added by Doug <
-		// Added by Paul
-		// Test Conflict 1
-		// Test Conflict 3
-		// Test Conflict 2
+		ProjectManager frame = new ProjectManager();
+		frame.setVisible(true);
 	}
-
 }
