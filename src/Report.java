@@ -1,17 +1,17 @@
 
 public class Report {
-/* From breeze notes.
- * PorjectManager {
+	/* From breeze notes.
+	 * PorjectManager {
 
-    Report(project);
+	    Report(project);
 
-}
+	}
 
-Report {
-    Report(Project p) {
-        //calculatations
-        ReportView(this)
-     }
-}
- */
+	Report {
+	    Report(Project p) {
+	        //calculatations
+	        ReportView(this)
+	     }
+	}
+	 */
 }
