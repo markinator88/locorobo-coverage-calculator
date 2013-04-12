@@ -12,6 +12,6 @@ public class Report {
 	        //calculatations
 	        ReportView(this)
 	     }
-	}
+	} another change.
 	 */
 }
