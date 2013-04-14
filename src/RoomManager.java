@@ -10,6 +10,7 @@ public class RoomManager extends JDialog {
 	private JTextField roomNameTextField;
 	public RoomManager() {
 		setTitle("Room Manager");
+		setBounds(200, 200, 520, 295);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
@@ -28,11 +29,12 @@ public class RoomManager extends JDialog {
 		
 		JList surfaceListBox = new JList();
 		scrollPane.setViewportView(surfaceListBox);
+		getContentPane().add(surfaceListBox);
 		
 		roomNameTextField = new JTextField();
 		GridBagConstraints gbc_roomNameTextField = new GridBagConstraints();
 		gbc_roomNameTextField.anchor = GridBagConstraints.SOUTH;
-		gbc_roomNameTextField.insets = new Insets(0, 0, 5, 0);
+		gbc_roomNameTextField.insets = new Insets(0, 110, 77,110);
 		gbc_roomNameTextField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_roomNameTextField.gridx = 1;
 		gbc_roomNameTextField.gridy = 0;
@@ -94,6 +96,8 @@ public class RoomManager extends JDialog {
 
 	private class NewSurfaceListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			SurfaceManager frame = new SurfaceManager();
+			frame.setVisible(true);			
 		}
 	}
 	private class ModifySurfaceListener implements ActionListener {
