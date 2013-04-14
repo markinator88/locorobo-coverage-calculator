@@ -35,7 +35,7 @@ public class SurfaceManager extends JDialog {
 		scrollPane.setViewportView(surfaceListBox);
 		
 		
-		
+		//Button to add trim
 			
 		JButton newTrimButton = new JButton("Add Trim");
 		newTrimButton.addActionListener(new NewTrimListener());
