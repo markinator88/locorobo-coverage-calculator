@@ -42,6 +42,7 @@ public class SurfaceManager extends JDialog {
 		widthTextField = new JTextField();
 		widthTextField.setText("Width"); 
 		GridBagConstraints gbc_widthTextField = new GridBagConstraints();
+		widthTextField.addActionListener(new widthTextFieldListener());
 		gbc_widthTextField.anchor = GridBagConstraints.CENTER;
 		gbc_widthTextField.insets = new Insets(0, 110, 77,110);
 		gbc_widthTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -53,6 +54,7 @@ public class SurfaceManager extends JDialog {
 		lengthTextField = new JTextField();
 		lengthTextField.setText("Length"); 
 		GridBagConstraints gbc_lengthTextField = new GridBagConstraints();
+		lengthTextField.addActionListener(new lengthTextFieldListener());
 		gbc_lengthTextField.anchor = GridBagConstraints.NORTHWEST;
 		gbc_lengthTextField.insets = new Insets(0, 110, 77,110);
 		gbc_lengthTextField.gridx = 2;
@@ -62,7 +64,6 @@ public class SurfaceManager extends JDialog {
 		
 		
 		heightTextField = new JTextField();
-		
 		heightTextField.setText("Height"); 
 		GridBagConstraints gbc_heightTextField = new GridBagConstraints();
 		heightTextField.addActionListener(new heightTextFieldListener());
@@ -154,11 +155,18 @@ public class SurfaceManager extends JDialog {
 	private class heightTextFieldListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("Text= " + heightTextField.getText());
-		      
-	}
-				
+		      }
 			}
-	
+	private class widthTextFieldListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Text= " + widthTextField.getText());
+		      }
+			}
+	private class lengthTextFieldListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Text= " + lengthTextField.getText());
+		      }
+			}
 	private class ModifySurfaceListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 		}
