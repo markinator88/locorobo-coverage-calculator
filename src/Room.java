@@ -1,7 +1,8 @@
 import java.util.*;
 
 public class Room {
-	private LinkedList surfaceList = new LinkedList();
+	private String roomName = new String("new room");
+	private ArrayList surfaceList = new ArrayList();
 	
 	
 	

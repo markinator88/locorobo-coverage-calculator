@@ -73,8 +73,8 @@ public class ProjectManager extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			// TODO code for event
 			// should add new room to list and maybe open modification screen
-			RoomManager frame = new RoomManager();
-			frame.setVisible(true);
+			RoomManager dialog = new RoomManager();
+			dialog.setVisible(true);
 		}
 	}
 	private class ModifyRoomListener implements ActionListener {

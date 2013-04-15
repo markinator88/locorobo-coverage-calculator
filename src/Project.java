@@ -16,4 +16,10 @@ public class Project {
 	public Room getRoomAtIndex(int index) {
 		return roomList.get(index);
 	}
+	public void setName(String n) {
+		projectName = n;
+	}
+	public String getName() {
+		return projectName;
+	}
 }
