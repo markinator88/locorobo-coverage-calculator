@@ -19,4 +19,7 @@ public class Project {
 	public void setName(String n) {
 		projectName = n;
 	}
+	public String getName() {
+		return projectName;
+	}
 }
