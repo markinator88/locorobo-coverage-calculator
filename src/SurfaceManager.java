@@ -8,12 +8,15 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Color;
 
 public class SurfaceManager extends JDialog {
-	
+	private JTextField heightTextField;
+	private JTextField lengthTextField;
+	private JTextField widthTextField;
 	public SurfaceManager() {
 		setTitle("Surface Manager");
-		setBounds(200, 200, 520, 295);
+		setBounds(200, 200, 700, 400);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
@@ -32,9 +35,44 @@ public class SurfaceManager extends JDialog {
 		
 		String[] data = {"Trim", "Paint", "Floor Tile"};
 		JList surfaceListBox = new JList(data);
+		surfaceListBox.setBackground(Color.LIGHT_GRAY);
 		scrollPane.setViewportView(surfaceListBox);
 		
 		
+		widthTextField = new JTextField();
+		widthTextField.setText("Width"); 
+		GridBagConstraints gbc_widthTextField = new GridBagConstraints();
+		gbc_widthTextField.anchor = GridBagConstraints.CENTER;
+		gbc_widthTextField.insets = new Insets(0, 110, 77,110);
+		gbc_widthTextField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_widthTextField.gridx = 2;
+		gbc_widthTextField.gridy = 0;
+		getContentPane().add(widthTextField, gbc_widthTextField);
+		widthTextField.setColumns(10);
+		
+		lengthTextField = new JTextField();
+		lengthTextField.setText("Length"); 
+		GridBagConstraints gbc_lengthTextField = new GridBagConstraints();
+		gbc_lengthTextField.anchor = GridBagConstraints.NORTHWEST;
+		gbc_lengthTextField.insets = new Insets(0, 110, 77,110);
+		gbc_lengthTextField.gridx = 2;
+		gbc_lengthTextField.gridy = 0;
+		getContentPane().add(lengthTextField, gbc_lengthTextField);
+		lengthTextField.setColumns(10);
+		
+		
+		heightTextField = new JTextField();
+		
+		heightTextField.setText("Height"); 
+		GridBagConstraints gbc_heightTextField = new GridBagConstraints();
+		heightTextField.addActionListener(new heightTextFieldListener());
+		gbc_heightTextField.anchor = GridBagConstraints.SOUTH;
+		gbc_heightTextField.insets = new Insets(0, 110, 77,110);
+		gbc_heightTextField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_heightTextField.gridx = 2;
+		gbc_heightTextField.gridy = 0;
+		getContentPane().add(heightTextField, gbc_heightTextField);
+		lengthTextField.setColumns(10);
 		//Button to add trim
 			
 		JButton newTrimButton = new JButton("Add Trim");
@@ -112,6 +150,15 @@ public class SurfaceManager extends JDialog {
             String info = textArea.getText();		
 		}
 	}
+	
+	private class heightTextFieldListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			System.out.println("Text= " + heightTextField.getText());
+		      
+	}
+				
+			}
+	
 	private class ModifySurfaceListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 		}
