@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 
 public class MaterialsList {
 	
@@ -10,6 +12,14 @@ public class MaterialsList {
 	// if no material found, return "material unavailable"
 	// get all procedure to display list of all avaliable materials
 	
+	private LinkedList<Material> materialList = new LinkedList<Material>();
 	
-
+	 public void addMaterial(Material M) 
+	 {
+		 materialList.add(M);
+	 } 
+	 public Material getMaterial(int i)
+	 {
+		 return materialList.get(i);
+	 }
 }
