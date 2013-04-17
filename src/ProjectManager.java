@@ -7,6 +7,7 @@ import java.awt.event.*;
 public class ProjectManager extends JFrame {
 	
 	private Project project = new Project();
+	JFrame thisFrame = this;
 	JList roomListBox;
 	JButton newRoomButton;
 	JButton modifyRoomButton;
@@ -34,6 +35,7 @@ public class ProjectManager extends JFrame {
 		getContentPane().add(scrollPane, gbc_scrollPane);
 		
 		roomListBox = new JList();
+		roomListBox.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(roomListBox);
 		
 		newRoomButton = new JButton("New Room");
@@ -78,8 +80,7 @@ public class ProjectManager extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			// TODO code for event
 			// should add new room to list and maybe open modification screen
-			
-			RoomManager dialog = new RoomManager(project.getRoomAtIndex(roomListBox.getSelectedIndex()));
+			RoomManager dialog = new RoomManager(thisFrame, new Room());
 			dialog.setVisible(true);
 		}
 	}
@@ -87,12 +88,16 @@ public class ProjectManager extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			// TODO code for event
 			// should open selected room in RoomManager for modification
+			
+			RoomManager dialog = new RoomManager(thisFrame, project.getRoomAtIndex(roomListBox.getSelectedIndex()));
+			dialog.setVisible(true);
 		}
 	}
 	private class DeleteRoomListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			// TODO code for event
 			// should delete selected room
+			project.removeRoom(roomListBox.getSelectedIndex());
 		}
 	}
 	private class CreateReportListener implements ActionListener {
