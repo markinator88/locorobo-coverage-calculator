@@ -14,7 +14,7 @@ public class SurfaceManager extends JDialog {
 	private JTextField heightTextField;
 	private JTextField lengthTextField;
 	private JTextField widthTextField;
-	public SurfaceManager() {
+	public SurfaceManager(Surface s) {
 		setTitle("Surface Manager");
 		setBounds(200, 200, 700, 400);
 		GridBagLayout gridBagLayout = new GridBagLayout();

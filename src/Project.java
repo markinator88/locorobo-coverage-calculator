@@ -22,4 +22,7 @@ public class Project {
 	public String getName() {
 		return projectName;
 	}
+	public ArrayList<Room> getRoomList() {
+		return (ArrayList<Room>)roomList.clone();
+	}
 }

@@ -7,6 +7,11 @@ import java.awt.event.*;
 public class ProjectManager extends JFrame {
 	
 	private Project project = new Project();
+	JList roomListBox;
+	JButton newRoomButton;
+	JButton modifyRoomButton;
+	JButton deleteRoomButton;
+	JButton createReportButton;
 	
 	public ProjectManager() {
 		setTitle("Coverage Calculator - Project Manager");
@@ -28,10 +33,10 @@ public class ProjectManager extends JFrame {
 		gbc_scrollPane.gridy = 0;
 		getContentPane().add(scrollPane, gbc_scrollPane);
 		
-		JList roomListBox = new JList();
+		roomListBox = new JList();
 		scrollPane.setViewportView(roomListBox);
 		
-		JButton newRoomButton = new JButton("New Room");
+		newRoomButton = new JButton("New Room");
 		newRoomButton.addActionListener(new NewRoomListener());
 		GridBagConstraints gbc_newRoomButton = new GridBagConstraints();
 		gbc_newRoomButton.fill = GridBagConstraints.HORIZONTAL;
@@ -41,7 +46,7 @@ public class ProjectManager extends JFrame {
 		gbc_newRoomButton.gridy = 0;
 		getContentPane().add(newRoomButton, gbc_newRoomButton);
 		
-		JButton modifyRoomButton = new JButton("Modify Room");
+		modifyRoomButton = new JButton("Modify Room");
 		modifyRoomButton.addActionListener(new ModifyRoomListener());
 		GridBagConstraints gbc_modifyRoomButton = new GridBagConstraints();
 		gbc_modifyRoomButton.fill = GridBagConstraints.HORIZONTAL;
@@ -50,7 +55,7 @@ public class ProjectManager extends JFrame {
 		gbc_modifyRoomButton.gridy = 1;
 		getContentPane().add(modifyRoomButton, gbc_modifyRoomButton);
 		
-		JButton deleteRoomButton = new JButton("Delete Room");
+		deleteRoomButton = new JButton("Delete Room");
 		deleteRoomButton.addActionListener(new DeleteRoomListener());
 		GridBagConstraints gbc_deleteRoomButton = new GridBagConstraints();
 		gbc_deleteRoomButton.fill = GridBagConstraints.HORIZONTAL;
@@ -73,7 +78,8 @@ public class ProjectManager extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			// TODO code for event
 			// should add new room to list and maybe open modification screen
-			RoomManager dialog = new RoomManager();
+			
+			RoomManager dialog = new RoomManager(project.getRoomAtIndex(roomListBox.getSelectedIndex()));
 			dialog.setVisible(true);
 		}
 	}

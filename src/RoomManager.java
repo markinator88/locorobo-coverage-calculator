@@ -7,35 +7,40 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class RoomManager extends JDialog {
+	
 	private JTextField roomNameTextField;
-	public RoomManager() {
+	private Room workingRoom = new Room();
+	public RoomManager(Room r) {
+		
+		workingRoom = r;
+		
 		setTitle("Room Manager");
-		setBounds(200, 200, 520, 295);
+		setBounds(200, 200, 520, 324);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{178, 0, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.anchor = GridBagConstraints.SOUTH;
 		gbc_scrollPane.gridheight = 7;
 		gbc_scrollPane.insets = new Insets(0, 0, 0, 5);
-		gbc_scrollPane.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane.fill = GridBagConstraints.HORIZONTAL;
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 0;
 		getContentPane().add(scrollPane, gbc_scrollPane);
 		
 		JList surfaceListBox = new JList();
 		scrollPane.setViewportView(surfaceListBox);
-		getContentPane().add(surfaceListBox);
+		//getContentPane().add(surfaceListBox);
 		
 		roomNameTextField = new JTextField();
 		GridBagConstraints gbc_roomNameTextField = new GridBagConstraints();
 		gbc_roomNameTextField.anchor = GridBagConstraints.SOUTH;
 		gbc_roomNameTextField.insets = new Insets(0, 110, 77,110);
-		gbc_roomNameTextField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_roomNameTextField.gridx = 1;
 		gbc_roomNameTextField.gridy = 0;
 		getContentPane().add(roomNameTextField, gbc_roomNameTextField);
@@ -96,8 +101,8 @@ public class RoomManager extends JDialog {
 
 	private class NewSurfaceListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			SurfaceManager frame = new SurfaceManager();
-			frame.setVisible(true);			
+			SurfaceManager dialog = new SurfaceManager();
+			dialog.setVisible(true);			
 		}
 	}
 	private class ModifySurfaceListener implements ActionListener {
