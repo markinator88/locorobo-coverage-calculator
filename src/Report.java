@@ -1,9 +1,8 @@
 
 public class Report {
-	
-	Report(Project p) {
-		
+	    Report(Project p) {
 	        //calculatations
-	    	//ReportView(this)
-	     			  }
-					}
+	        //ReportView(this)
+	     				  }
+					} 
+
