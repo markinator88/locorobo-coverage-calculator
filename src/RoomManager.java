@@ -27,17 +27,18 @@ public class RoomManager extends JDialog {
 						"Save changes?",
 						JOptionPane.YES_NO_CANCEL_OPTION)) {
 					case JOptionPane.YES_OPTION:
-						//SaveExitListener.actionPerformed(new Aciton);
+						workingRoom.setName(roomNameTextField.getText());
+						startingRoom = workingRoom;
+						thisDialog.setVisible(false);
+						thisDialog.dispose();
 						break;
 					case JOptionPane.NO_OPTION:
-						
+						thisDialog.setVisible(false);
+						thisDialog.dispose();
 						break;
-						
 					default:
+						break;
 				}
-					
-					
-				//frame.dispose();
 			}
 		});	
 		
