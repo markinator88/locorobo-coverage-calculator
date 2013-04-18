@@ -7,6 +7,7 @@ public class Room {
 	public void addSurface(Surface s) {
 		surfaceList.add(s);
 	}
+
 	public void replaceSurface(int index, Surface modifiedSurface) {
 		surfaceList.set(index, modifiedSurface);
 	}
