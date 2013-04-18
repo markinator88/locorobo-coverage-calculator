@@ -4,6 +4,8 @@ import java.awt.event.*;
 
 
 public class SurfaceManager extends JDialog {
+	
+	private JDialog thisDialog = this;
 	private JTextField heightTextField;
 	private JTextField lengthTextField;
 	private JTextField widthTextField;
@@ -95,6 +97,7 @@ public class SurfaceManager extends JDialog {
 		gbc_newSurfaceButton.gridy = 1;
 		getContentPane().add(newTileButton, gbc_newTileButton); */
 		
+		/*
 		JButton modifySurfaceButton = new JButton("Add Paint");
 		modifySurfaceButton.addActionListener(new ModifySurfaceListener());
 		GridBagConstraints gbc_modifySurfaceButton = new GridBagConstraints();
@@ -103,7 +106,8 @@ public class SurfaceManager extends JDialog {
 		gbc_modifySurfaceButton.gridx = 1;
 		gbc_modifySurfaceButton.gridy = 2;
 		getContentPane().add(modifySurfaceButton, gbc_modifySurfaceButton);
-		
+		*/
+		/*
 		JButton deleteSurfaceButton = new JButton("Delete Surface");
 		deleteSurfaceButton.addActionListener(new DeleteSurfaceListener());
 		GridBagConstraints gbc_deleteSurfaceButton = new GridBagConstraints();
@@ -112,7 +116,7 @@ public class SurfaceManager extends JDialog {
 		gbc_deleteSurfaceButton.gridx = 1;
 		gbc_deleteSurfaceButton.gridy = 3;
 		getContentPane().add(deleteSurfaceButton, gbc_deleteSurfaceButton);
-		
+		*/
 		Component verticalStrut = Box.createVerticalStrut(20);
 		GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
 		gbc_verticalStrut.insets = new Insets(0, 0, 5, 0);
@@ -152,7 +156,11 @@ public class SurfaceManager extends JDialog {
             String info = textArea.getText();		
 		}
 	}
-	
+	public Surface showDialog() {
+		// TODO finish logic for surface
+		this.setVisible(true);
+		return startingSurface;
+	}
 	private class heightTextFieldListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			System.out.println("Text= " + heightTextField.getText());
@@ -168,6 +176,7 @@ public class SurfaceManager extends JDialog {
 			System.out.println("Text= " + lengthTextField.getText());
 		      }
 			}
+	/*
 	private class ModifySurfaceListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 		}
@@ -176,12 +185,19 @@ public class SurfaceManager extends JDialog {
 		public void actionPerformed(ActionEvent e) {
 		}
 	}
+	*/
 	private class SaveExitListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			//workingSurface.setName(surfaceNameTextField.getText());
+			startingSurface = workingSurface;
+			thisDialog.setVisible(false);
+			thisDialog.dispose();
 		}
 	}
 	private class ExitNoSaveListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			thisDialog.setVisible(false);
+			thisDialog.dispose();
 		}
 	}
 

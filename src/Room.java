@@ -38,4 +38,11 @@ public class Room {
 	public ArrayList<Surface> getSurfaceList() {
 		return (ArrayList<Surface>)surfaceList.clone();
 	}
+	public String[] toStringArray() {
+		String returnArray[] = new String[surfaceList.size()];
+		for (int n=0; n<surfaceList.size(); n++) {
+			returnArray[n] = surfaceList.get(n).getName();
+		}
+		return returnArray;
+	}
 }

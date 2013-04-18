@@ -18,6 +18,29 @@ public class RoomManager extends JDialog {
 		workingRoom = new Room(r); // stores copy of original room to work with
 		
 		setTitle("Room Manager");
+		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent ev) {
+				switch (JOptionPane.showConfirmDialog(
+						null,
+						"Save changes before exiting?",
+						"Save changes?",
+						JOptionPane.YES_NO_CANCEL_OPTION)) {
+					case JOptionPane.YES_OPTION:
+						SaveExitListener.actionPerformed(new Aciton);
+						break;
+					case JOptionPane.NO_OPTION:
+						
+						break;
+						
+					default:
+				}
+					
+					
+				//frame.dispose();
+			}
+		});	
+		
 		setBounds(200, 200, 520, 324);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
@@ -100,17 +123,26 @@ public class RoomManager extends JDialog {
 		gbc_exitNoSaveButton.gridx = 1;
 		gbc_exitNoSaveButton.gridy = 6;
 		getContentPane().add(exitNoSaveButton, gbc_exitNoSaveButton);
+		
+				
+		
 	}
 
 	public Room showDialog() {
 		this.setVisible(true);
 		return startingRoom;
 	}
+	private void updateList() {
+		surfaceListBox.setListData(workingRoom.toStringArray());
+		this.validate();
+	}
 	
 	private class NewSurfaceListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			SurfaceManager dialog = new SurfaceManager(thisDialog , new Surface());
-			dialog.setVisible(true);		
+			SurfaceManager dialog = new SurfaceManager(thisDialog, new Surface());
+			Surface result = dialog.showDialog();
+			workingRoom.addSurface(result);
+			updateList();
 		}
 	}
 	private class ModifySurfaceListener implements ActionListener {
@@ -144,4 +176,5 @@ public class RoomManager extends JDialog {
 			thisDialog.dispose();
 		}
 	}
+	
 }
