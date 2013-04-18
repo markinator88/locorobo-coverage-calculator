@@ -1,20 +1,21 @@
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
-
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.Color;
 
 public class SurfaceManager extends JDialog {
 	private JTextField heightTextField;
 	private JTextField lengthTextField;
 	private JTextField widthTextField;
-	public SurfaceManager(Surface s) {
+	private Surface startingSurface;
+	private Surface workingSurface;
+	
+	public SurfaceManager(Dialog owner, Surface s) {
+		super(owner, true);
+		
+		startingSurface = s; //holds original surface
+		workingSurface = new Surface(s); //holds working copy of surface
+		
 		setTitle("Surface Manager");
 		setBounds(200, 200, 700, 400);
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -34,7 +35,7 @@ public class SurfaceManager extends JDialog {
 		getContentPane().add(scrollPane, gbc_scrollPane);
 		
 		String[] data = {"Trim", "Paint", "Floor Tile"};
-		JList surfaceListBox = new JList(data);
+		JList surfaceListBox = new JList();
 		surfaceListBox.setBackground(Color.LIGHT_GRAY);
 		scrollPane.setViewportView(surfaceListBox);
 		

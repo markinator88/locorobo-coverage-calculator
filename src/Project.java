@@ -29,4 +29,12 @@ public class Project {
 	public ArrayList<Room> getRoomList() {
 		return (ArrayList<Room>)roomList.clone();
 	}
+	public String[] toStringArray() {
+		String returnArray[] = new String[roomList.size()];
+		for (int n=0; n<roomList.size(); n++) {
+			returnArray[n] = roomList.get(n).getName();
+		}
+		return returnArray;
+	}
+	
 }

@@ -5,12 +5,17 @@ import java.awt.event.*;
 public class RoomManager extends JDialog {
 	
 	private JTextField roomNameTextField;
+	private JDialog thisDialog = this;
 	private JList surfaceListBox;
-	private Room workingRoom = new Room();
+	private Room startingRoom;
+	private Room workingRoom;
+	
 	
 	public RoomManager(Frame owner, Room r) {
 		super(owner,true);
-		workingRoom = r;
+		
+		startingRoom = r; // stores original room
+		workingRoom = new Room(r); // stores copy of original room to work with
 		
 		setTitle("Room Manager");
 		setBounds(200, 200, 520, 324);
@@ -37,7 +42,7 @@ public class RoomManager extends JDialog {
 		scrollPane.setViewportView(surfaceListBox);
 		//getContentPane().add(surfaceListBox);
 		
-		roomNameTextField = new JTextField();
+		roomNameTextField = new JTextField(workingRoom.getName());
 		GridBagConstraints gbc_roomNameTextField = new GridBagConstraints();
 		gbc_roomNameTextField.fill = GridBagConstraints.HORIZONTAL;
 		gbc_roomNameTextField.anchor = GridBagConstraints.SOUTH;
@@ -97,26 +102,46 @@ public class RoomManager extends JDialog {
 		getContentPane().add(exitNoSaveButton, gbc_exitNoSaveButton);
 	}
 
+	public Room showDialog() {
+		this.setVisible(true);
+		return startingRoom;
+	}
+	
 	private class NewSurfaceListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			//SurfaceManager dialog = new SurfaceManager(workingRoom.getSurfaceAtIndex(surfaceListBox.getSelectedIndex()));
-			//dialog.setVisible(true);			
+			SurfaceManager dialog = new SurfaceManager(thisDialog , new Surface());
+			dialog.setVisible(true);		
 		}
 	}
 	private class ModifySurfaceListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			SurfaceManager dialog = new SurfaceManager(thisDialog , workingRoom.getSurfaceAtIndex(surfaceListBox.getSelectedIndex()));
+			dialog.setVisible(true);
 		}
 	}
 	private class DeleteSurfaceListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			if (JOptionPane.showConfirmDialog(
+				null,
+				"Are you sure you want to delete the selected surface?",
+				"Delete",
+				JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+				workingRoom.removeSurface(surfaceListBox.getSelectedIndex());
+			} // else do nothing
 		}
 	}
 	private class SaveExitListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			workingRoom.setName(roomNameTextField.getText());
+			startingRoom = workingRoom;
+			thisDialog.setVisible(false);
+			thisDialog.dispose();
 		}
 	}
 	private class ExitNoSaveListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			thisDialog.setVisible(false);
+			thisDialog.dispose();
 		}
 	}
 }

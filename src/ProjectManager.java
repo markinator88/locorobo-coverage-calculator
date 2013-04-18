@@ -2,8 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-
-
 public class ProjectManager extends JFrame {
 	
 	private Project project = new Project();
@@ -15,6 +13,7 @@ public class ProjectManager extends JFrame {
 	JButton createReportButton;
 	
 	public ProjectManager() {
+		
 		setTitle("Coverage Calculator - Project Manager");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 300, 300);
@@ -34,7 +33,7 @@ public class ProjectManager extends JFrame {
 		gbc_scrollPane.gridy = 0;
 		getContentPane().add(scrollPane, gbc_scrollPane);
 		
-		roomListBox = new JList();
+		roomListBox = new JList(project.toStringArray());
 		roomListBox.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(roomListBox);
 		
@@ -75,29 +74,43 @@ public class ProjectManager extends JFrame {
 		gbc_createReportButton.gridy = 3;
 		getContentPane().add(createReportButton, gbc_createReportButton);
 	}
+	private void updateList() {
+		roomListBox.setListData(project.toStringArray());
+		this.validate();
+	}
 	
 	private class NewRoomListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			// TODO code for event
 			// should add new room to list and maybe open modification screen
 			RoomManager dialog = new RoomManager(thisFrame, new Room());
-			dialog.setVisible(true);
+			Room result = dialog.showDialog();
+			project.addRoom(result);
+			updateList();
 		}
 	}
 	private class ModifyRoomListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			// TODO code for event
 			// should open selected room in RoomManager for modification
-			
 			RoomManager dialog = new RoomManager(thisFrame, project.getRoomAtIndex(roomListBox.getSelectedIndex()));
-			dialog.setVisible(true);
+			Room result = dialog.showDialog();
+			project.replaceRoom(roomListBox.getSelectedIndex(), result);
+			updateList();
 		}
 	}
 	private class DeleteRoomListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			// TODO code for event
 			// should delete selected room
-			project.removeRoom(roomListBox.getSelectedIndex());
+			if (JOptionPane.showConfirmDialog(
+					null,
+					"Are you sure you want to delete the selected surface?",
+					"Delete",
+					JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
+					project.removeRoom(roomListBox.getSelectedIndex());
+				} // else do nothing
+			updateList();
 		}
 	}
 	private class CreateReportListener implements ActionListener {
