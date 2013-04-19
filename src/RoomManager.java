@@ -150,6 +150,7 @@ public class RoomManager extends JDialog {
 		public void actionPerformed(ActionEvent e) {
 			SurfaceManager dialog = new SurfaceManager(thisDialog , workingRoom.getSurfaceAtIndex(surfaceListBox.getSelectedIndex()));
 			dialog.setVisible(true);
+			updateList();
 		}
 	}
 	private class DeleteSurfaceListener implements ActionListener {
@@ -160,6 +161,7 @@ public class RoomManager extends JDialog {
 				"Delete",
 				JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
 				workingRoom.removeSurface(surfaceListBox.getSelectedIndex());
+				updateList();
 			} // else do nothing
 		}
 	}
