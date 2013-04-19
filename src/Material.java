@@ -6,9 +6,10 @@ public class Material {
 * (that may inherit from the Material class) for different types of materials?
 */
 
-private int materialType;
-
-final int TYPE_SPREAD = 0;
-final int TYPE_TILED = 1;
-final int TYPE_LENGTH = 2;
+	private int materialType;
+	private SKUList skuList;
+	
+	final static int TYPE_VOLUME = 0;
+	final static int TYPE_TILED = 1;
+	final static int TYPE_LENGTH = 2;
 }
