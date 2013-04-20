@@ -21,7 +21,9 @@ private JLabel lblSurfaceSize;
 private JLabel lblCutoutSize;
 private JButton SaveCutout;
 private JLabel lblSurfaceList;
-private JList list;
+private JTextArea textArea;
+double cutOutTotalDoor; 
+double cutOutTotalWindow; 
 
 public SurfaceManager(Dialog owner, Surface s) {
 super(owner, true);
@@ -166,13 +168,13 @@ gbc_lblSurfaceList.gridx = 1;
 gbc_lblSurfaceList.gridy = 6;
 getContentPane().add(lblSurfaceList, gbc_lblSurfaceList);
 
-list = new JList();
-GridBagConstraints gbc_list = new GridBagConstraints();
-gbc_list.insets = new Insets(0, 0, 5, 5);
-gbc_list.fill = GridBagConstraints.BOTH;
-gbc_list.gridx = 2;
-gbc_list.gridy = 6;
-getContentPane().add(list, gbc_list);
+textArea = new JTextArea();
+GridBagConstraints gbc_textArea = new GridBagConstraints();
+gbc_textArea.insets = new Insets(0, 0, 5, 5);
+gbc_textArea.fill = GridBagConstraints.BOTH;
+gbc_textArea.gridx = 2;
+gbc_textArea.gridy = 6;
+getContentPane().add(textArea, gbc_textArea);
 Component verticalStrut = Box.createVerticalStrut(20);
 GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
 gbc_verticalStrut.fill = GridBagConstraints.HORIZONTAL;
@@ -181,6 +183,7 @@ gbc_verticalStrut.gridx = 1;
 gbc_verticalStrut.gridy = 9;
 getContentPane().add(verticalStrut, gbc_verticalStrut);
 
+//Saves all the information gathered for the surface
 JButton saveExitButton = new JButton("Save and Exit");
 saveExitButton.addActionListener(new SaveExitListener());
 GridBagConstraints gbc_saveExitButton = new GridBagConstraints();
@@ -222,11 +225,32 @@ public void actionPerformed(ActionEvent e) {
 */
 
 public class SaveCutoutListener implements ActionListener {
-public void actionPerformed(ActionEvent e) {
-System.out.println(CutoutTypeComboBox.getSelectedItem() + " x "  + cutoutY.getText() + " x "  + cutoutX.getText());
+	public void actionPerformed(ActionEvent e) {
+		// Calls createCutout method 
+		createCutout(); 
+   }
 
+	// Method that is used to create the cutout dimensions.   Called from the SaveCutoutListener
+private void createCutout() {
+	String cutoutType  = (CutoutTypeComboBox.getSelectedItem().toString()); 
+	Double cutoutXdim = Double.parseDouble(cutoutX.getText()) ; 
+	Double cutoutYdim = Double.parseDouble(cutoutY.getText()) ; 
+	 double cutoutSize = 0; 
+	 if (cutoutType.equals("Door")) {
+	 	 cutoutSize = cutoutXdim * cutoutYdim ;
+	 	 textArea.append((cutoutType)+"= " + cutoutSize + " Sqft" + ": \n") ; 
+	 	 cutOutTotalDoor =  cutOutTotalDoor + cutoutSize ; 
+	 	
+	 }
+	 else {
+		 cutoutSize = cutoutXdim * cutoutYdim ;
+	 	 textArea.append((cutoutType)+"= " + cutoutSize + " Sqft" + ": \n") ; 
+	 	 cutOutTotalWindow = cutOutTotalWindow + cutoutSize; 
+	 	
+		  }
 }
 
+   
 }
 //private class SaveEmxitListener implements ActionListener  {
 // public void actionPerformed(ActionEvent e) {
@@ -238,6 +262,8 @@ private class SaveExitListener implements ActionListener {
 public void actionPerformed(ActionEvent e) {
 //workingSurface.setName(surfaceNameTextField.getText());
 startingSurface = workingSurface;
+System.out.println(cutOutTotalDoor);
+System.out.println(cutOutTotalWindow);
 thisDialog.setVisible(false);
 thisDialog.dispose();
 }
