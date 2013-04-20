@@ -7,7 +7,7 @@ import java.awt.event.*;
 			
 private JDialog thisDialog = this;
 private JTextField lengthTextField;
-private Surface startingSurface
+private Surface startingSurface;
 private Surface workingSurface;
 private JTextField surfaceX;
 private JComboBox MaterialComboBox;
