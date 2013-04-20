@@ -5,7 +5,7 @@ import java.awt.event.*;
 	
 	public class SurfaceManager extends JDialog {
 			
-				private JDialog thisDialog = this;
+			private JDialog thisDialog = this;
 					private JTextField lengthTextField;
 						private Surface startingSurface;
 							private Surface workingSurface;
