@@ -26,9 +26,12 @@ private double cutOutTotalDoor;
 private double cutOutTotalWindow; 
 private JTextArea surfaceTextArea;
 private double SurfaceSize; 
+private double SurfaceSizeTrim;  
+private double trimLength; 
 
 public SurfaceManager(Dialog owner, Surface s) {
 super(owner, true);
+getContentPane().setBackground(UIManager.getColor("InternalFrame.activeTitleGradient"));
 getContentPane().setFont(new Font("Tahoma", Font.PLAIN, 12));
 
 startingSurface = s; //holds original surface
@@ -246,10 +249,11 @@ private void createCutout() {
 	 	 cutOutTotalDoor =  cutOutTotalDoor + cutoutSize ; 
 	 	
 	 }
-	 else {
+	 else if (cutoutType.equals("Trim")){
 		 cutoutSize = cutoutXdim * cutoutYdim ;
 	 	 cutoutTextArea.append((cutoutType)+"= " + cutoutSize + " Sqft" + ": \n") ; 
 	 	 cutOutTotalWindow = cutOutTotalWindow + cutoutSize; 
+	 	 
 	 	
 		  }
 }
@@ -268,9 +272,9 @@ private void createSurface() {
 	Double surfaceYdim = Double.parseDouble(surfaceY.getText()) ; 
 	 double surfaceSize = 0; 
 	 if (surfaceType.equals("Trim")) {
-		 SurfaceSize = surfaceXdim * surfaceYdim ;
-		 surfaceTextArea.append((surfaceType)+"= " + SurfaceSize + " Sqft" + ": \n") ; 
-	 	 
+		 SurfaceSizeTrim = surfaceXdim + surfaceYdim * 2;
+		 surfaceTextArea.append((surfaceType)+"= " + SurfaceSizeTrim + " ft" + ": \n") ; 
+		 trimLength = trimLength + SurfaceSizeTrim ; 
 	 	
 	 }
 	 else {
