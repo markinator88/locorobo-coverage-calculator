@@ -1,19 +1,23 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
+
  
 public class TabSeparatedFileReader {
  
     public static void main(String args[]) throws Exception {
         /**
-         * Source file to read data from.
+         * Source files to read data from.
          */
-        String dataFileName = "C:/Users/Oh SUP Gurl/Desktop/School Stuff/Software Engineering/final/materials1.txt";
+      
+        String materialsFileName = "materials.tsv";
+        String skuFileName = "sku.tsv"; // SKU = stock-keeping unit
  
         /**
          * Creating a buffered reader to read the file
          */
+        BufferedReader bReader;
+        bReader = new BufferedReader(new FileReader(materialsFileName));
         BufferedReader bReader = new BufferedReader(
-                new FileReader(dataFileName));
+                new FileReader(materialsFileName));
  
         String line;
  //derp
@@ -25,19 +29,19 @@ public class TabSeparatedFileReader {
             /**
              * Splitting the content of tabbed separated line
              */
-            String datavalue[] = line.split("\t");
-            String value1 = datavalue[0];
-            String value2 = datavalue[1];
-            int value3 = Integer.parseInt(datavalue[2]);
-            double value4 = Double.parseDouble(datavalue[3]);
+            String dataValue[] = line.split("\t");
+            int uniqueID = Integer.parseInt(dataValue[0]);
+            String materialName = dataValue[1];
+            int materialType = Integer.parseInt(dataValue[2]);
  
             /**
              * Printing the value read from file to the console
              */
-            System.out.println(value1 + "\t" + value2 + "\t" + value3 + "\t"
-                    + value4);
+            //System.out.println(value1 + "\t" + value2 + "\t" + value3 + "\t"
+            //        + value4);
         }
         bReader.close();
+        return materialsList;
     }
  
 }
