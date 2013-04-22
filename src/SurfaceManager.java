@@ -1,9 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 	
 public class SurfaceManager extends JDialog {
 			
+
+final int TYPE_TRIM = 0;
+final int TYPE_PAINT = 1;
+final int TYPE_TILE = 2;
+
 private JDialog thisDialog = this;
 private JTextField lengthTextField;
 private Surface startingSurface;
@@ -24,10 +30,18 @@ private JLabel lblSurfaceList;
 private JTextArea cutoutTextArea;
 private double cutOutTotalDoor; 
 private double cutOutTotalWindow; 
+private double cutOutTotalOther; 
 private JTextArea surfaceTextArea;
-private double SurfaceSize; 
-private double SurfaceSizeTrim;  
+private double surfaceSize; 
+private double surfaceSizeTrim;  
 private double trimLength; 
+private JTextField surfaceNameTextField;
+double cutoutSizeTrim; 
+double trimTotal;
+double tileTotal;
+ArrayList <Surface> surfaces = new ArrayList<Surface>();
+private double paintTotal; 
+private JTextArea surfaceTypeTextArea;
 
 public SurfaceManager(Dialog owner, Surface s) {
 super(owner, true);
@@ -43,11 +57,21 @@ setBounds(200, 200, 700, 400);
 GridBagLayout gridBagLayout = new GridBagLayout();
 gridBagLayout.columnWidths = new int[]{0, 0, 0, 0};
 gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 43, 0, 90, 0, 0, 0, 0, 0, 0};
-gridBagLayout.columnWeights = new double[]{1.0, 0.0, 1.0, Double.MIN_VALUE};
-gridBagLayout.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
+gridBagLayout.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 getContentPane().setLayout(gridBagLayout);
 
 String[] data = {"Trim", "Paint", "Floor Tile"};
+surfaceNameTextField = new JTextField();
+surfaceNameTextField.setFont(new Font("Tahoma", Font.PLAIN, 14));
+surfaceNameTextField.setText("Enter Name for Room");
+GridBagConstraints gbc_surfaceNameTextField = new GridBagConstraints();
+gbc_surfaceNameTextField.insets = new Insets(0, 0, 5, 0);
+gbc_surfaceNameTextField.fill = GridBagConstraints.HORIZONTAL;
+gbc_surfaceNameTextField.gridx = 2;
+gbc_surfaceNameTextField.gridy = 0;
+getContentPane().add(surfaceNameTextField, gbc_surfaceNameTextField);
+surfaceNameTextField.setColumns(10);
 
 lblChooseMaterial = new JLabel("Choose Material");
 lblChooseMaterial.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -99,10 +123,20 @@ gbc_SaveSurface.insets = new Insets(0, 0, 5, 5);
 gbc_SaveSurface.gridx = 0;
 gbc_SaveSurface.gridy = 3;
 getContentPane().add(SaveSurface, gbc_SaveSurface);
+
+surfaceTypeTextArea = new JTextArea();
+GridBagConstraints gbc_surfaceTypeTextArea = new GridBagConstraints();
+gbc_surfaceTypeTextArea.anchor = GridBagConstraints.EAST;
+gbc_surfaceTypeTextArea.insets = new Insets(0, 0, 5, 5);
+gbc_surfaceTypeTextArea.gridx = 1;
+gbc_surfaceTypeTextArea.gridy = 3;
+getContentPane().add(surfaceTypeTextArea, gbc_surfaceTypeTextArea);
+surfaceTypeTextArea.setColumns(10);
+
 surfaceTextArea = new JTextArea();
 GridBagConstraints gbc_surfaceTextArea = new GridBagConstraints();
+gbc_surfaceTextArea.anchor = GridBagConstraints.WEST;
 gbc_surfaceTextArea.insets = new Insets(0, 0, 5, 0);
-gbc_surfaceTextArea.fill = GridBagConstraints.HORIZONTAL;
 gbc_surfaceTextArea.gridx = 2;
 gbc_surfaceTextArea.gridy = 3;
 getContentPane().add(surfaceTextArea, gbc_surfaceTextArea);
@@ -180,12 +214,12 @@ gbc_lblSurfaceList.gridy = 6;
 getContentPane().add(lblSurfaceList, gbc_lblSurfaceList);
 
 cutoutTextArea = new JTextArea();
-GridBagConstraints gbc_textArea = new GridBagConstraints();
-gbc_textArea.insets = new Insets(0, 0, 5, 0);
-gbc_textArea.fill = GridBagConstraints.BOTH;
-gbc_textArea.gridx = 2;
-gbc_textArea.gridy = 6;
-getContentPane().add(cutoutTextArea, gbc_textArea);
+GridBagConstraints gbc_cutoutTextArea = new GridBagConstraints();
+gbc_cutoutTextArea.insets = new Insets(0, 0, 5, 0);
+gbc_cutoutTextArea.fill = GridBagConstraints.BOTH;
+gbc_cutoutTextArea.gridx = 2;
+gbc_cutoutTextArea.gridy = 6;
+getContentPane().add(cutoutTextArea, gbc_cutoutTextArea);
 Component verticalStrut = Box.createVerticalStrut(20);
 GridBagConstraints gbc_verticalStrut = new GridBagConstraints();
 gbc_verticalStrut.fill = GridBagConstraints.HORIZONTAL;
@@ -203,6 +237,7 @@ gbc_saveExitButton.insets = new Insets(0, 0, 5, 5);
 gbc_saveExitButton.gridx = 1;
 gbc_saveExitButton.gridy = 10;
 getContentPane().add(saveExitButton, gbc_saveExitButton);
+
 
 JButton exitNoSaveButton = new JButton("Exit Without Saving");
 exitNoSaveButton.addActionListener(new ExitNoSaveListener());
@@ -230,32 +265,46 @@ public void actionPerformed(ActionEvent e) {
 }
 }
 */
-// Listener for the Save Cutout Button - calls the createCutout method
+// Listener for the Save cut out Button - calls the createCutout method
 public class SaveCutoutListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// Calls createCutout method 
 		createCutout(); 
    }
 }
-	// Method that is used to create the cutout dimensions.   Called from the SaveCutoutListener
+	// Method that is used to create the cut out dimensions.   Called from the SaveCutoutListener
 private void createCutout() {
 	String cutoutType  = (CutoutTypeComboBox.getSelectedItem().toString()); 
 	Double cutoutXdim = Double.parseDouble(cutoutX.getText()) ; 
 	Double cutoutYdim = Double.parseDouble(cutoutY.getText()) ; 
-	 double cutoutSize = 0; 
-	 if (cutoutType.equals("Door")) {
-	 	 cutoutSize = cutoutXdim * cutoutYdim ;
-	 	 cutoutTextArea.append((cutoutType)+"= " + cutoutSize + " Sqft" + ": \n") ; 
-	 	 cutOutTotalDoor =  cutOutTotalDoor + cutoutSize ; 
-	 	
-	 }
-	 else if (cutoutType.equals("Trim")){
-		 cutoutSize = cutoutXdim * cutoutYdim ;
-	 	 cutoutTextArea.append((cutoutType)+"= " + cutoutSize + " Sqft" + ": \n") ; 
-	 	 cutOutTotalWindow = cutOutTotalWindow + cutoutSize; 
+		 if (cutoutType.equals("Door")) {
+		 double cutoutSizeDoorTrim = (cutoutXdim) + (cutoutYdim * 2) ;
+		 double cutoutSizeDoor = cutoutXdim * cutoutYdim ;
+	 	 cutoutTextArea.append((cutoutType)+"= " + cutoutSizeDoor + " ft" + ": \n") ; 
+	 	 cutOutTotalDoor =  cutOutTotalDoor + cutoutSizeDoor ; 
+	 	 trimTotal = trimTotal +  cutoutSizeDoorTrim; 
+	 	 paintTotal = paintTotal - cutOutTotalDoor; 
+	 	 tileTotal = paintTotal - cutOutTotalDoor;
+		 }
 	 	 
-	 	
-		  }
+	 else if (cutoutType.equals("Window")){
+		 double cutoutSizeWindowTrim = (cutoutXdim * 2) + (cutoutYdim * 2) ;
+		 double cutoutSizeWindow = cutoutXdim * cutoutYdim ;
+	 	 cutoutTextArea.append((cutoutType)+"= " + cutoutSizeWindow+ " Sqft" + ": \n") ; 
+	 	 cutOutTotalWindow =  cutOutTotalWindow + cutoutSizeWindow; 
+	 	 trimTotal = trimTotal +  cutoutSizeWindowTrim; 
+	 	 paintTotal = paintTotal - cutOutTotalWindow; 
+	 	 tileTotal = tileTotal - cutOutTotalWindow;
+	 	  }
+	 else {
+		 double cutoutSizeOtherTrim = (cutoutXdim * 2) + (cutoutYdim * 2) ;
+		 double cutoutSizeOther = cutoutXdim * cutoutYdim ; 
+		 cutOutTotalOther =  cutOutTotalOther + cutoutSizeOther ; 
+		 trimTotal = trimTotal +  cutoutSizeOtherTrim; 
+		 paintTotal = paintTotal - cutoutSizeOther; 
+		 tileTotal = tileTotal - cutoutSizeOther;
+		 
+	 }
 }
 
 public class SaveSurfaceListener implements ActionListener {
@@ -270,16 +319,16 @@ private void createSurface() {
 	String surfaceType  = (MaterialComboBox.getSelectedItem().toString()); 
 	Double surfaceXdim = Double.parseDouble(surfaceX.getText()) ; 
 	Double surfaceYdim = Double.parseDouble(surfaceY.getText()) ; 
-	 double surfaceSize = 0; 
+	double surfaceSize = 0; 
 	 if (surfaceType.equals("Trim")) {
-		 SurfaceSizeTrim = surfaceXdim + surfaceYdim * 2;
-		 surfaceTextArea.append((surfaceType)+"= " + SurfaceSizeTrim + " ft" + ": \n") ; 
-		 trimLength = trimLength + SurfaceSizeTrim ; 
-	 	
+		 surfaceSizeTrim = surfaceXdim;
+		 surfaceTextArea.append(surfaceSizeTrim + " ft") ; 
+		 surfaceTypeTextArea.append(surfaceType); 
+		 trimTotal = trimTotal + surfaceSizeTrim;
 	 }
 	 else {
-		 SurfaceSize = surfaceXdim * surfaceYdim ;
-		 surfaceTextArea.append((surfaceType)+"= " + surfaceSize + " Sqft" + ": \n") ; 
+		 surfaceSize = surfaceXdim * surfaceYdim ;
+		 surfaceTextArea.append(surfaceSize + " Sqft" + ": \n") ; 
 	 	 
 	 	
 		  }
@@ -297,12 +346,27 @@ private void createSurface() {
 
 private class SaveExitListener implements ActionListener {
 public void actionPerformed(ActionEvent e) {
-//workingSurface.setName(surfaceNameTextField.getText());
+workingSurface.setName(surfaceNameTextField.getText());
 startingSurface = workingSurface;
-System.out.println(cutOutTotalDoor);
-System.out.println(cutOutTotalWindow);
+saveSurface(); 
 thisDialog.setVisible(false);
 thisDialog.dispose();
+}
+
+
+// creates a new Surface Object
+private void saveSurface() {
+	if (MaterialComboBox.getSelectedItem().toString().equals("Trim")){
+		Surface st = new Surface(TYPE_TRIM, trimTotal );
+		surfaces.add(st);
+		System.out.println(cutOutTotalDoor);
+		System.out.println(cutOutTotalWindow);
+		System.out.println(surfaces.get(0).toString());
+		
+	}
+	
+	
+	
 }
 }
 private class ExitNoSaveListener implements ActionListener {

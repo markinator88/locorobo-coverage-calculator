@@ -7,22 +7,44 @@ public class Surface {
 	 */
 	
 	String surfaceName;
-	private int surfaceType;
-	private int dim1;
-	private int dim2;
+	private int type ; 
+	private double quantity; 
 	
-	final int TYPE_FLOOR = 0;
-	final int TYPE_CEILING = 1;
-	final int TYPE_WALL = 2;
+	final int TYPE_TRIM = 0;
+	final int TYPE_PAINT = 1;
+	final int TYPE_TILE = 2;
+	
 	Surface() {
-		surfaceName = new String("new surface");
+	surfaceName = new String("new surface");
+	}
+	public String getSurfaceName() {
+		return surfaceName;
+	}
+	public void setSurfaceName(String surfaceName) {
+		this.surfaceName = surfaceName;
+	}
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
+	}
+	public double getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(double quantity) {
+		this.quantity = quantity;
 	}
 	Surface (Surface s) {
 		
 	}
-	Surface (int type, int dimension1, int dimension2) {
+	Surface (int type, double quantity) {
+		surfaceName = new String (); 
+		this.type = type;
+		this.quantity =quantity; 
 		
 	}
+	
 	public String getName() {
 		return surfaceName;
 	}
