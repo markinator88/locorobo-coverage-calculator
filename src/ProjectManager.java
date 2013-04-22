@@ -33,7 +33,7 @@ public class ProjectManager extends JFrame {
 		gbc_scrollPane.gridy = 0;
 		getContentPane().add(scrollPane, gbc_scrollPane);
 		
-		roomListBox = new JList(project.toStringArray());
+		roomListBox = new JList<String>(project.toStringArray());
 		roomListBox.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(roomListBox);
 		

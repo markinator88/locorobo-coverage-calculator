@@ -3,23 +3,24 @@ import java.io.*;
  
 public class TabSeparatedFileReader {
  
-    public static void main(String args[]) throws Exception {
+    public static MaterialsList readFiles() throws Exception {
         /**
          * Source files to read data from.
          */
-      
+
         String materialsFileName = "materials.tsv";
         String skuFileName = "sku.tsv"; // SKU = stock-keeping unit
  
+     	MaterialsList materialsList = new MaterialsList();
         /**
          * Creating a buffered reader to read the file
          */
-        BufferedReader bReader;
-        bReader = new BufferedReader(new FileReader(materialsFileName));
+
         BufferedReader bReader = new BufferedReader(
                 new FileReader(materialsFileName));
  
         String line;
+ //herp
  //derp
         /**
          * Looping the read block until all lines in the file are read.
