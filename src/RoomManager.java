@@ -124,15 +124,13 @@ public class RoomManager extends JDialog {
 		gbc_exitNoSaveButton.gridx = 1;
 		gbc_exitNoSaveButton.gridy = 6;
 		getContentPane().add(exitNoSaveButton, gbc_exitNoSaveButton);
-		
-				
-		
 	}
 
 	public Room showDialog() {
 		this.setVisible(true);
 		return startingRoom;
 	}
+	
 	private void updateList() {
 		surfaceListBox.setListData(workingRoom.toStringArray());
 		this.validate();
@@ -146,13 +144,16 @@ public class RoomManager extends JDialog {
 			updateList();
 		}
 	}
+	
 	private class ModifySurfaceListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			SurfaceManager dialog = new SurfaceManager(thisDialog , workingRoom.getSurfaceAtIndex(surfaceListBox.getSelectedIndex()));
-			dialog.setVisible(true);
+			Surface result = dialog.showDialog();
+			workingRoom.replaceSurface(surfaceListBox.getSelectedIndex(), result);
 			updateList();
 		}
 	}
+	
 	private class DeleteSurfaceListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (JOptionPane.showConfirmDialog(

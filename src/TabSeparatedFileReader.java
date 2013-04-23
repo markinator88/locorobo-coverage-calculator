@@ -9,34 +9,36 @@ public class TabSeparatedFileReader {
 	 * @throws Exception
 	 */
     public static MaterialsList readFiles() throws Exception {
+
+        /*
+         * Source files to read data from.
+         */
+    	MaterialsList materialsList = new MaterialsList();
     	
-        // source data files with tab-seperated data
+
         String materialsFileName = "materials.tsv";
         String skuFileName = "sku.tsv"; // SKU = stock-keeping unit
- 
-     	MaterialsList materialsList = new MaterialsList();
-       
-        
+
         BufferedReader bReader = new BufferedReader(
                 new FileReader(materialsFileName));
  
         String line;
-        
-        
+
         // loop through lines until end of file
-        while ((line = bReader.readLine()) != null) {
- 
-            
-            
+
+      
+        while ((line = bReader.readLine()) != null) {          
         	// Split the content of tab-separated line
              
             String dataValue[] = line.split("\t");
             int uniqueID = Integer.parseInt(dataValue[0]);
             String materialName = dataValue[1];
             int materialType = Integer.parseInt(dataValue[2]);
+            
+            // materialsList.
  
             // add new material to list
-            materialsList.addMaterial(new Material(uniqueID, materialName, materialType)); 
+          
         }
         bReader.close();
         
