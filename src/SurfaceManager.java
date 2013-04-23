@@ -10,7 +10,6 @@ public class SurfaceManager extends JDialog {
 	final int TYPE_TILE = 2;
 
 	private JDialog thisDialog = this;
-	private JTextField lengthTextField;
 	private Surface startingSurface;
 	private Surface workingSurface;
 	private JTextField surfaceX;
@@ -29,16 +28,11 @@ public class SurfaceManager extends JDialog {
 	private JTextArea cutoutTextArea;
 	private double cutOutTotalDoor;
 	private double cutOutTotalWindow;
-	private double cutOutTotalOther;
-	private double surfaceSize;
-	private double surfaceSizeTrim;
-	private double trimLength;
 	private JTextField surfaceNameTextField;
-	double cutoutSizeTrim;
-	double trimTotal;
-	double tileTotal;
+	String surfaceType;
+
 	ArrayList<Surface> surfaces = new ArrayList<Surface>();
-	private double paintTotal;
+
 	private JTextArea surfaceTextArea;
 	private JLabel lblSurfaceList_1;
 
@@ -276,13 +270,19 @@ public class SurfaceManager extends JDialog {
 	// Method that is used to create the cut out dimensions. Called from the
 	// SaveCutoutListener
 	private void createCutout() {
+		try {
 		String cutoutType = (CutoutTypeComboBox.getSelectedItem().toString());
 		Double cutoutXdim = Double.parseDouble(cutoutX.getText());
 		Double cutoutYdim = Double.parseDouble(cutoutY.getText());
-		cutoutTextArea.append((cutoutType) + ", Width=" + cutoutXdim + ", Height=" + cutoutYdim + ": \n");
-
+		cutoutTextArea.append((cutoutType) + ", Width=" + cutoutXdim
+				+ ", Height=" + cutoutYdim + ": \n");
+	} // End of try block
+		catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null,"Input must be a number.");
+			//e.printStackTrace();
+		} // End of catch NumberFormatException
+		
 	}
-
 	public class SaveSurfaceListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			// Calls createCutout method
@@ -292,11 +292,22 @@ public class SurfaceManager extends JDialog {
 	}
 
 	private void createSurface() {
-		String surfaceType = (MaterialComboBox.getSelectedItem().toString());
-		Double surfaceXdim = Double.parseDouble(surfaceX.getText());
-		Double surfaceYdim = Double.parseDouble(surfaceY.getText());
-		surfaceTextArea.append((surfaceType) + ", Width=" + surfaceXdim + ", Height=" + surfaceYdim + ": \n");
-			}
+
+		try {
+			surfaceType = (MaterialComboBox.getSelectedItem().toString());
+			Double surfaceXdim = Double.parseDouble(surfaceX.getText());
+			Double surfaceYdim = Double.parseDouble(surfaceY.getText());
+			surfaceTextArea.append((surfaceType) + ", Width=" + surfaceXdim
+					+ ", Height=" + surfaceYdim + ": \n");
+
+		} // End of try block
+
+		catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "Input must be a number.");
+			// e.printStackTrace();
+		} // End of catch NumberFormatException
+
+	}
 
 	// private class SaveEmxitListener implements ActionListener {
 	// public void actionPerformed(ActionEvent e) {
@@ -315,7 +326,7 @@ public class SurfaceManager extends JDialog {
 		// creates a new Surface Object
 		private void saveSurface() {
 			if (MaterialComboBox.getSelectedItem().toString().equals("Trim")) {
-				Surface st = new Surface(TYPE_TRIM, trimTotal);
+				Surface st = new Surface(TYPE_TRIM, 7);
 				surfaces.add(st);
 				System.out.println(cutOutTotalDoor);
 				System.out.println(cutOutTotalWindow);

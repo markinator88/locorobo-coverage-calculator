@@ -1,18 +1,40 @@
+import java.util.ArrayList;
+
 
 public class Surface {
 	
 	/**
-	 * Should we have one Surface class or should we create multiple classes
-	 * (that may inherit from the Surface class) for different types of surfaces?
+	 * Surface class 
+	 *  
 	 */
-	
-	String surfaceName;
 	private int type ; 
-	private double quantity; 
-	
+	private double surfaceXdim; 
+	private double surfaceYdim; 
 	final int TYPE_TRIM = 0;
 	final int TYPE_PAINT = 1;
 	final int TYPE_TILE = 2;
+	String surfaceName;
+	private ArrayList<Cutout> cutoutList = new ArrayList<Cutout>();
+	public ArrayList<Cutout> getCutoutList() {
+		return cutoutList;
+	}
+	public void setCutoutList(ArrayList<Cutout> cutoutList) {
+		this.cutoutList = cutoutList;
+	}
+	public double getSurfaceXdim() {
+		return surfaceXdim;
+	}
+	public void setSurfaceXdim(double surfaceXdim) {
+		this.surfaceXdim = surfaceXdim;
+	}
+	public double getSurfaceYdim() {
+		return surfaceYdim;
+	}
+	public void setSurfaceYdim(double surfaceYdim) {
+		this.surfaceYdim = surfaceYdim;
+	}
+
+	
 	
 	Surface() {
 	surfaceName = new String("new surface");
@@ -30,10 +52,10 @@ public class Surface {
 		this.type = type;
 	}
 	public double getQuantity() {
-		return quantity;
+		return surfaceXdim;
 	}
 	public void setQuantity(double quantity) {
-		this.quantity = quantity;
+		this.surfaceXdim = quantity;
 	}
 	Surface (Surface s) {
 		
@@ -41,7 +63,7 @@ public class Surface {
 	Surface (int type, double quantity) {
 		surfaceName = new String (); 
 		this.type = type;
-		this.quantity =quantity; 
+		this.surfaceXdim =quantity; 
 		
 	}
 	
