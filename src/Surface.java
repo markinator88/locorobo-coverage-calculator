@@ -7,70 +7,72 @@ public class Surface {
 	 * Surface class 
 	 *  
 	 */
-	private int type ; 
+	private String surfaceName;
+	private ArrayList<Cutout> cutoutList = new ArrayList<Cutout>();
+	private int type; 
 	private double surfaceXdim; 
 	private double surfaceYdim; 
 	final int TYPE_TRIM = 0;
 	final int TYPE_PAINT = 1;
 	final int TYPE_TILE = 2;
-	String surfaceName;
-	private ArrayList<Cutout> cutoutList = new ArrayList<Cutout>();
-	public ArrayList<Cutout> getCutoutList() {
-		return cutoutList;
-	}
-	public void setCutoutList(ArrayList<Cutout> cutoutList) {
-		this.cutoutList = cutoutList;
-	}
-	public double getSurfaceXdim() {
-		return surfaceXdim;
-	}
-	public void setSurfaceXdim(double surfaceXdim) {
-		this.surfaceXdim = surfaceXdim;
-	}
-	public double getSurfaceYdim() {
-		return surfaceYdim;
-	}
-	public void setSurfaceYdim(double surfaceYdim) {
-		this.surfaceYdim = surfaceYdim;
-	}
-
 	
 	
 	Surface() {
-	surfaceName = new String("new surface");
+		surfaceName = new String("new surface");
 	}
-	public String getSurfaceName() {
-		return surfaceName;
+	Surface(Surface r) { // copy constructor
+		this.surfaceName = new String(r.getName());
+		this.cutoutList = new ArrayList<Cutout>();
+		for (Cutout cutout : cutoutList) {
+			this.cutoutList.add(new Cutout(cutout));
+		}
 	}
-	public void setSurfaceName(String surfaceName) {
-		this.surfaceName = surfaceName;
+	
+	public void addCutout(Cutout s) {
+		cutoutList.add(s); 
 	}
-	public int getType() {
-		return type;
+	public void replaceCutout(int index, Cutout modifiedCutout) {
+		cutoutList.set(index, modifiedCutout);
 	}
-	public void setType(int type) {
-		this.type = type;
+	
+	
+	
+	public void removeSurface(int index) {
+		cutoutList.remove(index);
 	}
-	public double getQuantity() {
-		return surfaceXdim;
+
+	public Cutout getCutoutAtIndex(int index) {
+		return cutoutList.get(index);
 	}
-	public void setQuantity(double quantity) {
-		this.surfaceXdim = quantity;
+	
+	public int getListSize() {
+		return cutoutList.size();
 	}
-	Surface (Surface s) {
-		
-	}
-	Surface (int type, double quantity) {
-		surfaceName = new String (); 
-		this.type = type;
-		this.surfaceXdim =quantity; 
-		
+	
+	public void setName(String s) {
+		surfaceName = s;
 	}
 	
 	public String getName() {
 		return surfaceName;
 	}
-	public void setName(String s) {
-		surfaceName = s;
+	
+	public ArrayList<Cutout> getCutoutList() {
+		return (ArrayList<Cutout>)cutoutList.clone();
 	}
+	
+	public String[] toStringArray() {
+		String returnArray[] = new String[cutoutList.size()];
+		for (int n=0; n<cutoutList.size(); n++) {
+			returnArray[n] = cutoutList.get(n).getName();
+		}
+		return returnArray;
+	}
+	
 }
+
+	
+	
+	
+
+	

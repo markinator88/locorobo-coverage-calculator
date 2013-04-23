@@ -26,8 +26,6 @@ public class SurfaceManager extends JDialog {
 	private JButton SaveSurface;
 	private JLabel lblSurfaceList;
 	private JTextArea cutoutTextArea;
-	private double cutOutTotalDoor;
-	private double cutOutTotalWindow;
 	private JTextField surfaceNameTextField;
 	String surfaceType;
 
@@ -38,6 +36,8 @@ public class SurfaceManager extends JDialog {
 
 	public SurfaceManager(Dialog owner, Surface s) {
 		super(owner, true);
+		
+		
 		setSize(new Dimension(700, 474));
 		getContentPane().setBackground(
 				UIManager.getColor("InternalFrame.activeTitleGradient"));
@@ -297,8 +297,8 @@ public class SurfaceManager extends JDialog {
 			surfaceType = (MaterialComboBox.getSelectedItem().toString());
 			Double surfaceXdim = Double.parseDouble(surfaceX.getText());
 			Double surfaceYdim = Double.parseDouble(surfaceY.getText());
-			surfaceTextArea.append((surfaceType) + ", Width=" + surfaceXdim
-					+ ", Height=" + surfaceYdim + ": \n");
+			surfaceTextArea.setText((surfaceType) + ", Width=" + surfaceXdim
+					+ ", Height=" + surfaceYdim);
 
 		} // End of try block
 
@@ -326,12 +326,9 @@ public class SurfaceManager extends JDialog {
 		// creates a new Surface Object
 		private void saveSurface() {
 			if (MaterialComboBox.getSelectedItem().toString().equals("Trim")) {
-				Surface st = new Surface(TYPE_TRIM, 7);
+				Surface st = new Surface();
 				surfaces.add(st);
-				System.out.println(cutOutTotalDoor);
-				System.out.println(cutOutTotalWindow);
-				System.out.println(surfaces.get(0).toString());
-
+			
 			}
 
 		}
