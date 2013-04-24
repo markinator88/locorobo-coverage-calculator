@@ -1,4 +1,7 @@
 import java.io.*;
+import java.nio.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
 import java.util.*;
  
 public class TabSeparatedFileReader {
@@ -15,19 +18,18 @@ public class TabSeparatedFileReader {
          */
     	LinkedList<Material> materialsList = new LinkedList<Material>();
     	
+    	Path materialsFilePath = FileSystems.getDefault().getPath("../DataFiles", "materials.tsv");
+    	Path skuFilePath = FileSystems.getDefault().getPath("../DataFiles", "sku.tsv");
+       
 
-        String materialsFileName = "materials.tsv";
-        String skuFileName = "sku.tsv"; // SKU = stock-keeping unit
-
-        BufferedReader bReader = new BufferedReader(
-                new FileReader(materialsFileName));
+        BufferedReader reader = Files.newBufferedReader(materialsFilePath, StandardCharsets.UTF_8);
  
         String line;
 
         // loop through lines until end of file
 
       
-        while ((line = bReader.readLine()) != null) {          
+        while ((line = reader.readLine()) != null) {          
         	// Split the content of tab-separated line
              
             String dataValue[] = line.split("\t");
@@ -40,11 +42,11 @@ public class TabSeparatedFileReader {
             // add new material to list
           
         }
-        bReader.close();
+        reader.close();
         
-        bReader = new BufferedReader(new FileReader(skuFileName));
+        reader = Files.newBufferedReader(skuFilePath, StandardCharsets.UTF_8);
         
-        while ((line = bReader.readLine()) != null) {
+        while ((line = reader.readLine()) != null) {
         	
         	 String dataValue[] = line.split("\t");
         	 int foreignKey = Integer.parseInt(dataValue[0]);
@@ -65,7 +67,7 @@ public class TabSeparatedFileReader {
         		materialsList.get(index).addSKU(new SKU(foreignKey, unitName, baseUnits, price));
         	 }
         }
-        bReader.close();
+        reader.close();
         
         return materialsList;
     }
