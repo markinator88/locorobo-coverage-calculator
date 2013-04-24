@@ -49,7 +49,7 @@ public class TabSeparatedFileReader {
         	 String dataValue[] = line.split("\t");
         	 int foreignKey = Integer.parseInt(dataValue[0]);
         	 String unitName = dataValue[1];
-        	 int baseUnits = Integer.parseInt(dataValue[2]);
+        	 double baseUnits = Integer.parseInt(dataValue[2]);
         	 double price = Double.parseDouble(dataValue[3]);
         	 
         	 int index = 0;
@@ -59,8 +59,11 @@ public class TabSeparatedFileReader {
         			 found = true;
         		 else
         			 index ++;
-        	 } while(found = false);
-        	 
+        	 } while(found = false && index < materialsList.size());
+        	 if (found == true)
+        	 {
+        		materialsList.get(index).addSKU(new SKU(foreignKey, unitName, baseUnits, price));
+        	 }
         }
         bReader.close();
         
