@@ -15,15 +15,6 @@ public class TabSeparatedFileReader {
          */
     	LinkedList<Material> materialsList = new LinkedList<Material>();
     		
-    	BufferedWriter bw = new BufferedWriter(new FileWriter(new File("file.txt")));
-    	bw.write("Look, a file");
-    	bw.close();
-    	
-    	
-    	String dir="user.dir"; // set to current directory
-    	  try {dir=new File(System.getProperty(dir)).getCanonicalPath();}
-    	  catch (IOException e1) { /*handler required but null */ }
-    	  System.out.println ("Current dir : " + dir);
     	  
     	File materialsFilePath = new File("materials.tsv");
     	File skuFilePath = new File("sku.tsv");
