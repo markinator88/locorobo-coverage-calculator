@@ -1,5 +1,5 @@
 import java.io.*;
-
+import java.util.*;
  
 public class TabSeparatedFileReader {
 	
@@ -8,12 +8,12 @@ public class TabSeparatedFileReader {
 	 * @return list of materials including SKUs
 	 * @throws Exception
 	 */
-    public static MaterialsList readFiles() throws Exception {
+    public static LinkedList<Material> readFiles() throws Exception {
 
         /*
          * Source files to read data from.
          */
-    	MaterialsList materialsList = new MaterialsList();
+    	LinkedList<Material> materialsList = new LinkedList<Material>();
     	
 
         String materialsFileName = "materials.tsv";
@@ -47,24 +47,18 @@ public class TabSeparatedFileReader {
         while ((line = bReader.readLine()) != null) {
         	
         	 String dataValue[] = line.split("\t");
-        	 // TODO: set up adding SKUS to list in materials 
-        	 /*
-             int foreignKey = Integer.parseInt(dataValue[0]);
-             String materialName = dataValue[1];
-             int materialType = Integer.parseInt(dataValue[2]);
-             
-             //code to search for matching UID and foreign key
-            
-        	*/
         	 int foreignKey = Integer.parseInt(dataValue[0]);
         	 String unitName = dataValue[1];
         	 int baseUnits = Integer.parseInt(dataValue[2]);
         	 double price = Double.parseDouble(dataValue[3]);
         	 
-        	 
+        	 int index = 0;
         	 boolean found = false;
         	 do {
-        		 
+        		 if (foreignKey == materialsList.get(index).getID())
+        			 found = true;
+        		 else
+        			 index ++;
         	 } while(found = false);
         	 
         }

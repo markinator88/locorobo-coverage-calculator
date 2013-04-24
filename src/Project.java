@@ -3,7 +3,7 @@ import java.util.*;
 public class Project {
 	private ArrayList<Room> roomList = new ArrayList<Room>();
 	private String projectName = new String();
-	private MaterialsList materialsList = new MaterialsList();
+	//private MaterialsList materialsList = new MaterialsList();
 	
 	public void addRoom(Room r) {
 		roomList.add(r);
