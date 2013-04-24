@@ -17,7 +17,7 @@ public class CoverageCalculator {
 			frame.setVisible(true);
 		}
 		catch (Exception e) {
-			
+			e.printStackTrace();
 		}
 		
 	}

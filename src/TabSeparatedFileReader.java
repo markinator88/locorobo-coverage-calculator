@@ -18,11 +18,21 @@ public class TabSeparatedFileReader {
          */
     	LinkedList<Material> materialsList = new LinkedList<Material>();
     		
-    	Path materialsFilePath = FileSystems.getDefault().getPath("../DataFiles", "materials.tsv");
-    	Path skuFilePath = FileSystems.getDefault().getPath("../DataFiles", "sku.tsv");
+    	BufferedWriter bw = new BufferedWriter(new FileWriter(new File("file.txt")));
+    	bw.write("Look, a file");
+    	bw.close();
+    	
+    	
+    	String dir="user.dir"; // set to current directory
+    	  try {dir=new File(System.getProperty(dir)).getCanonicalPath();}
+    	  catch (IOException e1) { /*handler required but null */ }
+    	  System.out.println ("Current dir : " + dir);
+    	  
+    	File materialsFilePath = new File("materials.tsv");
+    	File skuFilePath = new File("sku.tsv");
        
 
-        BufferedReader reader = Files.newBufferedReader(materialsFilePath, StandardCharsets.UTF_8);
+        BufferedReader reader = new BufferedReader(new FileReader(materialsFilePath));
  
         String line;
 
@@ -37,14 +47,14 @@ public class TabSeparatedFileReader {
             String materialName = dataValue[1];
             int materialType = Integer.parseInt(dataValue[2]);
             
-            // materialsList.
+            materialsList.add(new Material(uniqueID, materialName, materialType));
  
             // add new material to list
           
         }
         reader.close();
         
-        reader = Files.newBufferedReader(skuFilePath, StandardCharsets.UTF_8);
+        reader = new BufferedReader(new FileReader(skuFilePath));
         
         while ((line = reader.readLine()) != null) {
         	
