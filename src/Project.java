@@ -41,4 +41,8 @@ public class Project {
 		return returnArray;
 	}
 	
+	public LinkedList<Material> getMaterialsList() {
+		return materialsList;
+	}
+	
 }
