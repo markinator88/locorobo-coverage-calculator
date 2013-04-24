@@ -13,7 +13,6 @@ public class ProjectManager extends JFrame {
 	JButton createReportButton;
 	
 	public ProjectManager() {
-		
 		setTitle("Coverage Calculator - Project Manager");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 300, 300);
@@ -81,8 +80,6 @@ public class ProjectManager extends JFrame {
 	
 	private class NewRoomListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			// TODO code for event
-			// should add new room to list and maybe open modification screen
 			RoomManager dialog = new RoomManager(thisFrame, new Room());
 			Room result = dialog.showDialog();
 			project.addRoom(result);
@@ -91,8 +88,6 @@ public class ProjectManager extends JFrame {
 	}
 	private class ModifyRoomListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			// TODO code for event
-			// should open selected room in RoomManager for modification
 			RoomManager dialog = new RoomManager(thisFrame, project.getRoomAtIndex(roomListBox.getSelectedIndex()));
 			Room result = dialog.showDialog();
 			project.replaceRoom(roomListBox.getSelectedIndex(), result);
@@ -101,8 +96,6 @@ public class ProjectManager extends JFrame {
 	}
 	private class DeleteRoomListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			// TODO code for event
-			// should delete selected room
 			if (JOptionPane.showConfirmDialog(
 					null,
 					"Are you sure you want to delete the selected surface?",

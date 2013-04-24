@@ -56,6 +56,11 @@ public class TabSeparatedFileReader {
              //code to search for matching UID and foreign key
             
         	*/
+        	 int foreignKey = Integer.parseInt(dataValue[0]);
+        	 String unitName = dataValue[1];
+        	 int baseUnits = Integer.parseInt(dataValue[2]);
+        	 double price = Double.parseDouble(dataValue[3]);
+        	 
         	 
         	 boolean found = false;
         	 do {

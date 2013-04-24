@@ -64,6 +64,7 @@ public class RoomManager extends JDialog {
 		
 		surfaceListBox = new JList<String>();
 		scrollPane.setViewportView(surfaceListBox);
+		updateList();
 		//getContentPane().add(surfaceListBox);
 		
 		roomNameTextField = new JTextField(workingRoom.getName());
