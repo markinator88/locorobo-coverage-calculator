@@ -1,6 +1,6 @@
 import java.io.*;
 import java.nio.*;
-import java.nio.charset.StandardCharsets;
+import java.nio.charset.*;
 import java.nio.file.*;
 import java.util.*;
  
@@ -17,7 +17,7 @@ public class TabSeparatedFileReader {
          * Source files to read data from.
          */
     	LinkedList<Material> materialsList = new LinkedList<Material>();
-    	
+    		
     	Path materialsFilePath = FileSystems.getDefault().getPath("../DataFiles", "materials.tsv");
     	Path skuFilePath = FileSystems.getDefault().getPath("../DataFiles", "sku.tsv");
        
@@ -70,6 +70,8 @@ public class TabSeparatedFileReader {
         reader.close();
         
         return materialsList;
+        
+        
     }
  
 }

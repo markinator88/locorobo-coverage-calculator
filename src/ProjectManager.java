@@ -1,10 +1,11 @@
 import javax.swing.*;
+import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 
 public class ProjectManager extends JFrame {
 	
-	private Project project = new Project();
+	private Project project;
 	JFrame thisFrame = this;
 	JList roomListBox;
 	JButton newRoomButton;
@@ -12,7 +13,9 @@ public class ProjectManager extends JFrame {
 	JButton deleteRoomButton;
 	JButton createReportButton;
 	
-	public ProjectManager() {
+	public ProjectManager(Project p) {
+		this.project = p;
+		
 		setTitle("Coverage Calculator - Project Manager");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 300, 300);

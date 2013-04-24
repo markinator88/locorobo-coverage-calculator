@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.*;
 import javax.swing.*;
 /**
  * @author Mark Rutledge
@@ -7,9 +8,17 @@ import javax.swing.*;
 public class CoverageCalculator {
 	/**
 	 * @param args
+	 * @throws Exception 
 	 */
-	public static void main(String[] args) {
-		ProjectManager frame = new ProjectManager();
-		frame.setVisible(true);
+	public static void main(String[] args){
+		try {
+			LinkedList<Material> materialsList = TabSeparatedFileReader.readFiles();
+			ProjectManager frame = new ProjectManager(new Project(materialsList));
+			frame.setVisible(true);
+		}
+		catch (Exception e) {
+			
+		}
+		
 	}
 }

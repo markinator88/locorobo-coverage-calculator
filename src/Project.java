@@ -3,7 +3,11 @@ import java.util.*;
 public class Project {
 	private ArrayList<Room> roomList = new ArrayList<Room>();
 	private String projectName = new String();
-	//private MaterialsList materialsList = new MaterialsList();
+	private LinkedList<Material> materialsList;
+	
+	public Project(LinkedList<Material> m) {
+		this.materialsList = m;
+	}
 	
 	public void addRoom(Room r) {
 		roomList.add(r);
