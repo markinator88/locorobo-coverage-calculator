@@ -24,7 +24,7 @@ public class Surface {
 	
 	
 	Surface(double surfaceXdim, double surfaceYdim, String surfaceType) {
-		
+		//
 		surfaceName = new String("new surface");
 		this.surfaceXdim = surfaceXdim; 
 		this.surfaceYdim = surfaceYdim;

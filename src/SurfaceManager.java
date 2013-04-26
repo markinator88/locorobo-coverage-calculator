@@ -269,7 +269,7 @@ public class SurfaceManager extends JDialog {
 		
 		}
 
-		// creates a new Surface Object
+		// creates a new Surface Object.
 		private void saveSurface() {
 			workingSurface.setName(surfaceNameTextField.getText());
 			surfaceXdim = Double.parseDouble(surfaceX.getText());
@@ -282,6 +282,10 @@ public class SurfaceManager extends JDialog {
 			thisDialog.setVisible(false);
 			thisDialog.dispose();
 			
+			System.out.println(workingSurface.getName());
+			System.out.println(workingSurface.getCutoutList()); 
+			System.out.println(startingSurface.getName());
+			System.out.println(startingSurface.getSurfaceYdim());
 			
 
 			
