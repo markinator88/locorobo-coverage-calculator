@@ -1,19 +1,21 @@
+import java.util.ArrayList;
+
 
 public class Cutout {
 	
 	private double cutoutXdim ; 
 	private double cutoutYdim ; 
-	private int cutoutType;
-	//cutout Type int Door = 0, int Window = 1;
+	private String cutoutType;
 	
 	
-	public Cutout(int cutoutType, double cutoutXdim, double cutoutYdim) {
+	public Cutout(String cutoutType, double cutoutXdim, double cutoutYdim) {
 		
 		this.cutoutType = cutoutType; 
 		this.cutoutXdim = cutoutXdim; 
 		this.cutoutYdim = cutoutYdim; 
-				
-	}
+		
+		}
+	
 		
 	public Cutout(Cutout cutout) {
 		// TODO Auto-generated constructor stub
@@ -39,12 +41,12 @@ public class Cutout {
 	}
 
 
-	public int getCutoutType() {
+	public String getCutoutType() {
 		return cutoutType;
 	}
 
 
-	public void setCutoutType(int cutoutType) {
+	public void setCutoutType(String cutoutType) {
 		this.cutoutType = cutoutType;
 	}
 
