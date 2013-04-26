@@ -34,6 +34,7 @@ public class Report extends JPanel {
 		gbc_lblNewLabel.gridy = 2;
 		add(lblNewLabel, gbc_lblNewLabel);
 		
+		//Calculates and shows the amount of paint needed for the job.
 		JTextArea textArea = new JTextArea();
 		GridBagConstraints gbc_textArea = new GridBagConstraints();
 		gbc_textArea.insets = new Insets(0, 0, 5, 0);
@@ -49,6 +50,7 @@ public class Report extends JPanel {
 		gbc_lblNewLabel_1.gridy = 4;
 		add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
+		//Calculates and shows the amount of trim needed for the job.
 		JTextArea textArea_1 = new JTextArea();
 		GridBagConstraints gbc_textArea_1 = new GridBagConstraints();
 		gbc_textArea_1.insets = new Insets(0, 0, 5, 0);
@@ -64,6 +66,7 @@ public class Report extends JPanel {
 		gbc_lblNewLabel_2.gridy = 6;
 		add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
+		//Calculates and shows the amount of tiles needed for the job.
 		JTextArea textArea_2 = new JTextArea();
 		GridBagConstraints gbc_textArea_2 = new GridBagConstraints();
 		gbc_textArea_2.insets = new Insets(0, 0, 5, 0);
@@ -72,6 +75,9 @@ public class Report extends JPanel {
 		gbc_textArea_2.gridy = 6;
 		add(textArea_2, gbc_textArea_2);
 		
+		
+		// Remove this section from the report after confirming the correct amount of cutout needed.
+		// Also remove the results section after confirming the correct amount.
 		JLabel lblNewLabel_3 = new JLabel("Subtract Cutout");
 		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
 		gbc_lblNewLabel_3.insets = new Insets(0, 0, 0, 5);
@@ -79,6 +85,7 @@ public class Report extends JPanel {
 		gbc_lblNewLabel_3.gridy = 8;
 		add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
+		//Calculates the cutout.
 		JTextArea textArea_3 = new JTextArea();
 		GridBagConstraints gbc_textArea_3 = new GridBagConstraints();
 		gbc_textArea_3.fill = GridBagConstraints.BOTH;
