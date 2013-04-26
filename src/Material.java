@@ -37,5 +37,9 @@ public class Material {
 		skuList.add(s);
 	}
 	
+	public LinkedList<SKU> getSKUList() {
+		return skuList;
+	}
+	
 	
 }
