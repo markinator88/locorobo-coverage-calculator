@@ -22,7 +22,7 @@ public class Surface {
 		surfaceName = new String("new surface");
 	}
 	
-	
+	//
 	Surface(double surfaceXdim, double surfaceYdim, String surfaceType) {
 		//
 		surfaceName = new String("new surface");

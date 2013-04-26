@@ -5,8 +5,9 @@ public class Project {
 	private String projectName = new String();
 	private LinkedList<Material> materialsList;
 	
-	public Project(LinkedList<Material> m) {
-		this.materialsList = m;
+	
+	public Project() {
+		//this.materialsList = m;
 	}
 	
 	public void addRoom(Room r) {

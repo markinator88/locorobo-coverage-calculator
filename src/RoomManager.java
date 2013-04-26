@@ -6,7 +6,7 @@ public class RoomManager extends JDialog {
 	
 	private JTextField roomNameTextField;
 	private JDialog thisDialog = this;
-	private JList<String> surfaceListBox;
+	private JList surfaceListBox;
 	private Room startingRoom;
 	private Room workingRoom;
 	
@@ -62,7 +62,7 @@ public class RoomManager extends JDialog {
 		gbc_scrollPane.gridy = 0;
 		getContentPane().add(scrollPane, gbc_scrollPane);
 		
-		surfaceListBox = new JList<String>();
+		surfaceListBox = new JList();
 		scrollPane.setViewportView(surfaceListBox);
 		updateList();
 		//getContentPane().add(surfaceListBox);
@@ -151,6 +151,7 @@ public class RoomManager extends JDialog {
 			SurfaceManager dialog = new SurfaceManager(thisDialog , workingRoom.getSurfaceAtIndex(surfaceListBox.getSelectedIndex()));
 			Surface result = dialog.showDialog();
 			workingRoom.replaceSurface(surfaceListBox.getSelectedIndex(), result);
+			
 			updateList();
 		}
 	}

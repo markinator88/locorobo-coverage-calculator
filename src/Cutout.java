@@ -7,7 +7,7 @@ public class Cutout {
 	private double cutoutYdim ; 
 	private String cutoutType;
 	
-	
+	//
 	public Cutout(String cutoutType, double cutoutXdim, double cutoutYdim) {
 		//
 		this.cutoutType = cutoutType; 
