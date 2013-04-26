@@ -12,8 +12,8 @@ public class CoverageCalculator {
 	 */
 	public static void main(String[] args){
 		try {
-			LinkedList<Material> materialsList = TabSeparatedFileReader.readFiles();
-			ProjectManager frame = new ProjectManager(new Project(materialsList));
+			//LinkedList<Material> materialsList = TabSeparatedFileReader.readFiles();
+			ProjectManager frame = new ProjectManager(new Project());
 			frame.setVisible(true);
 		}
 		catch (Exception e) {

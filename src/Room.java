@@ -3,7 +3,22 @@ import java.util.*;
 public class Room {
 	private String roomName;
 	private ArrayList<Surface> surfaceList = new ArrayList<Surface>();
-	
+	private String surfaceType; 
+	public String getSurfaceType() {
+		return surfaceType;
+	}
+	public void setSurfaceType(String surfaceType) {
+		this.surfaceType = surfaceType;
+	}
+	public String getRoomName() {
+		return roomName;
+	}
+	public void setRoomName(String roomName) {
+		this.roomName = roomName;
+	}
+	public void setSurfaceList(ArrayList<Surface> surfaceList) {
+		this.surfaceList = surfaceList;
+	}
 	Room() {
 		roomName = new String("new room");
 	}
