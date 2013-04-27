@@ -305,6 +305,23 @@ public class SurfaceManager extends JDialog {
 			thisDialog.setVisible(false);
 			thisDialog.dispose();
 		}
+		
+		private void surfaceTypeFinder() {
+		surfaceTypeReader = (MaterialComboBox.getSelectedItem().toString());
+		if (surfaceTypeReader.equals("Paint")) {
+		surfaceType = TYPE_PAINT;
+		}
+		else if (surfaceTypeReader.equals("Tile")) {
+		surfaceType = TYPE_TILE;
+		}
+												
+		else if (surfaceTypeReader.equals("Trim")) {
+		 surfaceType = TYPE_TRIM;
+		}
+															
+		}
+		
+		
 	}
 	
 	/**
