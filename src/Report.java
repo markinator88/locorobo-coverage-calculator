@@ -1,10 +1,5 @@
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextArea;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-
+import javax.swing.*;
+import java.awt.*;
 
 public class Report extends JPanel {
 
@@ -12,6 +7,7 @@ public class Report extends JPanel {
 	 * Create the panel.
 	 */
 	public Report() {
+				
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{153, 143, 0};
 		gridBagLayout.rowHeights = new int[]{15, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -106,5 +102,4 @@ public class Report extends JPanel {
 		add(CutLabel, gbc_CutLabel);
 
 	}
-
 }
