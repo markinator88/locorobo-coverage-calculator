@@ -30,6 +30,7 @@ public class SurfaceManager extends JDialog {
 	private JTextArea cutoutTextArea;
 	private JTextField surfaceNameTextField;
 	String surfaceType;
+	int Sting SurfaceTypeFinder; 
 	int cutoutType; 
 	private Double surfaceXdim;
 	private Double surfaceYdim; 
@@ -297,7 +298,7 @@ public class SurfaceManager extends JDialog {
 			workingSurface.setName(surfaceNameTextField.getText());
 			surfaceXdim = Double.parseDouble(surfaceX.getText());
 			surfaceYdim = Double.parseDouble(surfaceY.getText());
-			surfaceType = (MaterialComboBox.getSelectedItem().toString());
+			surfaceTypeFinder(); 
 			workingSurface.setSurfaceXdim(surfaceXdim);
 			workingSurface.setSurfaceYdim(surfaceYdim);
 			workingSurface.setSurfaceType(surfaceType); 
