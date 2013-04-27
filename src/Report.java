@@ -6,6 +6,9 @@ public class Report extends JDialog {
 	/**
 	 * Create the panel.
 	 */
+	 
+	private Project project; 
+	
 	public Report (Project p) {
 		setLocation(new Point(400, 200));
 		setSize(new Dimension(600, 400));
