@@ -147,7 +147,7 @@ public class ProjectManager extends JFrame {
 		 * creates a report of the project
 		 */
 		public void actionPerformed(ActionEvent e) {
-			Report dialog = new Report();
+			Report dialog = new Report(project);
 			dialog.setVisible(true);
 			// TODO code for event
 			// should open report selection screen
