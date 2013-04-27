@@ -275,20 +275,15 @@ public class SurfaceManager extends JDialog {
 			workingSurface.setName(surfaceNameTextField.getText());
 			surfaceXdim = Double.parseDouble(surfaceX.getText());
 			surfaceYdim = Double.parseDouble(surfaceY.getText());
+			surfaceType = (MaterialComboBox.getSelectedItem().toString());
 			workingSurface.setSurfaceXdim(surfaceXdim);
 			workingSurface.setSurfaceYdim(surfaceYdim);
 			workingSurface.setSurfaceType(surfaceType); 
 			startingSurface = workingSurface;
-			
 			thisDialog.setVisible(false);
 			thisDialog.dispose();
 			
-			System.out.println(workingSurface.getName());
-			System.out.println(workingSurface.getCutoutList()); 
-			System.out.println(startingSurface.getName());
-			System.out.println(startingSurface.getSurfaceYdim());
-			
-
+		
 			
 		}
 	}
