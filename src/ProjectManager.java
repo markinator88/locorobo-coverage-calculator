@@ -111,6 +111,8 @@ public class ProjectManager extends JFrame {
 	}
 	private class CreateReportListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			Report dialog = new Report();
+			dialog.setVisible(true);
 			// TODO code for event
 			// should open report selection screen
 		}
