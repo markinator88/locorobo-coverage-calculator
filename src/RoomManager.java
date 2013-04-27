@@ -2,6 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * GUI controls that allow viewing and manipulation of the room
+ */
 public class RoomManager extends JDialog {
 	
 	private JTextField roomNameTextField;
@@ -10,7 +13,11 @@ public class RoomManager extends JDialog {
 	private Room startingRoom;
 	private Room workingRoom;
 	
-	
+	/**
+	 * creates this dialog to modify a room
+	 * @param owner frame that cannot be accessed until done with this frame
+	 * @param r room to be modified
+	 */
 	public RoomManager(Frame owner, Room r) {
 		super(owner,true);
 		
@@ -20,6 +27,9 @@ public class RoomManager extends JDialog {
 		setTitle("Room Manager");
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
+			/**
+			 * asks for confirmation to save and close upon clicking close button
+			 */
 			public void windowClosing(WindowEvent ev) {
 				switch (JOptionPane.showConfirmDialog(
 						null,
@@ -126,18 +136,31 @@ public class RoomManager extends JDialog {
 		gbc_exitNoSaveButton.gridy = 6;
 		getContentPane().add(exitNoSaveButton, gbc_exitNoSaveButton);
 	}
-
+	
+	/**
+	 * makes dialog visible and returns modified room to calling class when done
+	 * @return
+	 */
 	public Room showDialog() {
 		this.setVisible(true);
 		return startingRoom;
 	}
 	
+	/**
+	 * updates list contents after changes are made
+	 */
 	private void updateList() {
 		surfaceListBox.setListData(workingRoom.toStringArray());
 		this.validate();
 	}
 	
+	/**
+	 * listens for button pres of new surface button
+	 */
 	private class NewSurfaceListener implements ActionListener {
+		/**
+		 * opens a new room for modification in the surface manager
+		 */
 		public void actionPerformed(ActionEvent e) {
 			SurfaceManager dialog = new SurfaceManager(thisDialog, new Surface());
 			Surface result = dialog.showDialog();
@@ -146,17 +169,27 @@ public class RoomManager extends JDialog {
 		}
 	}
 	
+	/**
+	 * listens for button press of the modify surface button
+	 */
 	private class ModifySurfaceListener implements ActionListener {
+		/**
+		 * opens the selected surface for modification
+		 */
 		public void actionPerformed(ActionEvent e) {
 			SurfaceManager dialog = new SurfaceManager(thisDialog , workingRoom.getSurfaceAtIndex(surfaceListBox.getSelectedIndex()));
 			Surface result = dialog.showDialog();
 			workingRoom.replaceSurface(surfaceListBox.getSelectedIndex(), result);
-			
 			updateList();
 		}
 	}
-	
+	/**
+	 * listens for button press of delete surface button
+	 */
 	private class DeleteSurfaceListener implements ActionListener {
+		/**
+		 * prompts for deletion of selected surface
+		 */
 		public void actionPerformed(ActionEvent e) {
 			if (JOptionPane.showConfirmDialog(
 				null,
@@ -168,7 +201,13 @@ public class RoomManager extends JDialog {
 			} // else do nothing
 		}
 	}
+	/**
+	 * listens for button press of save and exit button
+	 */
 	private class SaveExitListener implements ActionListener {
+		/**
+		 * sets modified room to be returned by showDialog() method and disposes of the dialog
+		 */
 		public void actionPerformed(ActionEvent e) {
 			workingRoom.setName(roomNameTextField.getText());
 			startingRoom = workingRoom;
@@ -176,7 +215,13 @@ public class RoomManager extends JDialog {
 			thisDialog.dispose();
 		}
 	}
+	/**
+	 * listens for button press of exit without saving button
+	 */
 	private class ExitNoSaveListener implements ActionListener {
+		/**
+		 * keeps unmodified room to be returned by showDialog() and dispose of the dialog
+		 */
 		public void actionPerformed(ActionEvent e) {
 			thisDialog.setVisible(false);
 			thisDialog.dispose();
