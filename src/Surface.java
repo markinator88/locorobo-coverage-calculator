@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Surface {
 	
 	private String surfaceName;
-    private String surfaceType; 
+    private int surfaceType; 
 	private double surfaceXdim; 
 	private double surfaceYdim; 
 	final int TYPE_TRIM = 0;
@@ -29,7 +29,7 @@ public class Surface {
 	 * @param surfaceYdim
 	 * @param surfaceType
 	 */
-	Surface(double surfaceXdim, double surfaceYdim, String surfaceType) {
+	Surface(double surfaceXdim, double surfaceYdim, int surfaceType) {
 		//
 		surfaceName = new String("new surface");
 		this.surfaceXdim = surfaceXdim; 
@@ -118,15 +118,15 @@ public class Surface {
 	 * returns the type of surface
 	 * @return type of surface
 	 */
-	public String getSurfaceType() {
+	public int getSurfaceType() {
 		return surfaceType;
 	}
 	
 	/**
 	 * sets the type of surface
-	 * @param surfaceType
+	 * @param surfaceType2
 	 */
-	public void setSurfaceType(String surfaceType) {
+	public void setSurfaceType(int surfaceType) {
 		this.surfaceType = surfaceType;
 	}
 	

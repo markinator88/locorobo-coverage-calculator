@@ -29,8 +29,8 @@ public class SurfaceManager extends JDialog {
 	private JLabel lblSurfaceList;
 	private JTextArea cutoutTextArea;
 	private JTextField surfaceNameTextField;
-	String surfaceType;
-	int Sting SurfaceTypeFinder; 
+	int surfaceType;
+	String surfaceTypeReader; 
 	int cutoutType; 
 	private Double surfaceXdim;
 	private Double surfaceYdim; 
