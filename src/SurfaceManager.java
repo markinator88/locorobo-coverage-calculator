@@ -249,6 +249,7 @@ public class SurfaceManager extends JDialog {
 		cutoutTextArea.append((cutoutType) + ", Width=" + cutoutXdim
 				+ ", Height=" + cutoutYdim + ": \n");
 		Cutout cutout = new Cutout(cutoutType, cutoutXdim, cutoutYdim) ; 
+		workingSurface.addCutout(cutout);  
 		
 	} // End of try block
 		catch (NumberFormatException e) {
