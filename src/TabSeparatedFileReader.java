@@ -1,6 +1,9 @@
 import java.io.*;
 import java.util.*;
- 
+
+/**
+ * opens and reads input files for materials
+ */
 public class TabSeparatedFileReader {
 	
 	/**

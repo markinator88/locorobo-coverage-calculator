@@ -3,6 +3,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
+/**
+ * GUI components to view and modify a surface
+ */
 public class SurfaceManager extends JDialog {
 
 	final int TYPE_TRIM = 0;
@@ -31,7 +34,11 @@ public class SurfaceManager extends JDialog {
 	private Double surfaceXdim;
 	private Double surfaceYdim; 
 	
-
+	/**
+	 * creates a surface manager dialog for a specified surface
+	 * @param owner
+	 * @param surface
+	 */
 	public SurfaceManager(Dialog owner, Surface s) {
 		super(owner, true);
 		
@@ -218,7 +225,11 @@ public class SurfaceManager extends JDialog {
 				gbc_exitNoSaveButton.gridy = 11;
 				getContentPane().add(exitNoSaveButton, gbc_exitNoSaveButton);
 	}
-
+	
+	/**
+	 * makes dialog visible and returns surface when finished
+	 * @return
+	 */
 	public Surface showDialog() {
 		// TODO finish logic for surface
 		this.setVisible(true);
@@ -231,7 +242,10 @@ public class SurfaceManager extends JDialog {
 	 * DeleteSurfaceListener implements ActionListener { public void
 	 * actionPerformed(ActionEvent e) { } }
 	 */
-	// Listener for the Save cut out Button - calls the createCutout method
+	
+	/** 
+	 * Listener for the Save cut out Button - calls the createCutout method
+	 */
 	public class SaveCutoutListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			// Calls createCutout method
@@ -239,8 +253,9 @@ public class SurfaceManager extends JDialog {
 		}
 	}
 
-	// Method that is used to create the cut out dimensions. Called from the
-	// SaveCutoutListener
+	/** Method that is used to create the cut out dimensions. Called from the
+	 *  SaveCutoutListener 
+	 */
 	private void createCutout() {
 		try {
 		String cutoutType = (CutoutTypeComboBox.getSelectedItem().toString());
@@ -263,14 +278,21 @@ public class SurfaceManager extends JDialog {
 	// public void actionPerformed(ActionEvent e) {
 	// textField.setText(studentOutputString((String)comboBox.getSelectedItem()));
 	// textField.setText("BLAH");
-
+	/**
+	 * listens for button press for save and exit button
+	 */
 	private class SaveExitListener implements ActionListener {
+		/**
+		 * saves the surface
+		 */
 		public void actionPerformed(ActionEvent e) {
 			saveSurface();
 		
 		}
 
-		// creates a new Surface Object
+		/**
+		 * creates a new Surface Object
+		 */
 		private void saveSurface() {
 			workingSurface.setName(surfaceNameTextField.getText());
 			surfaceXdim = Double.parseDouble(surfaceX.getText());
@@ -282,13 +304,16 @@ public class SurfaceManager extends JDialog {
 			startingSurface = workingSurface;
 			thisDialog.setVisible(false);
 			thisDialog.dispose();
-			
-		
-			
 		}
 	}
-
+	
+	/**
+	 * listens for button press on exit without saving button
+	 */
 	private class ExitNoSaveListener implements ActionListener {
+		/**
+		 * exits without saving
+		 */
 		public void actionPerformed(ActionEvent e) {
 			thisDialog.setVisible(false);
 			thisDialog.dispose();
