@@ -2,23 +2,22 @@ import java.awt.*;
 import java.util.*;
 import javax.swing.*;
 /**
- * @author Mark Rutledge
- * @date 4/8/2012
+ * starts the coverage calculator by opening up the project manager 
  */
 public class CoverageCalculator {
 	/**
+	 * driver that starts CoverageCalculator by opening up the project manager
 	 * @param args
-	 * @throws Exception 
 	 */
 	public static void main(String[] args){
-		try {
+		//try {
 			//LinkedList<Material> materialsList = TabSeparatedFileReader.readFiles();
 			ProjectManager frame = new ProjectManager(new Project());
 			frame.setVisible(true);
-		}
+		/*}
 		catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 		
 	}
 }

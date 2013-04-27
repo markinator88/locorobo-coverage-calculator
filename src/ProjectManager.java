@@ -3,6 +3,9 @@ import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * GUI components allowing the user to view and modify the project 
+ */
 public class ProjectManager extends JFrame {
 	
 	private Project project;
@@ -13,6 +16,10 @@ public class ProjectManager extends JFrame {
 	JButton deleteRoomButton;
 	JButton createReportButton;
 	
+	/**
+	 * creates a GUI interface for viewing and modifying the specified project
+	 * @param p project to be modified
+	 */
 	public ProjectManager(Project p) {
 		this.project = p;
 		
@@ -75,13 +82,23 @@ public class ProjectManager extends JFrame {
 		gbc_createReportButton.gridx = 1;
 		gbc_createReportButton.gridy = 3;
 		getContentPane().add(createReportButton, gbc_createReportButton);
+		
+	/**
+	 * method used to update data displayed in the list of rooms every time the list is modified	
+	 */
 	}
 	private void updateList() {
 		roomListBox.setListData(project.toStringArray());
 		this.validate();
 	}
 	
+	/**
+	 * listens for button press of the new room button
+	 */
 	private class NewRoomListener implements ActionListener {
+		/**
+		 * creates a new room and opens the room manager to modify that room
+		 */
 		public void actionPerformed(ActionEvent e) {
 			RoomManager dialog = new RoomManager(thisFrame, new Room());
 			Room result = dialog.showDialog();
@@ -89,7 +106,13 @@ public class ProjectManager extends JFrame {
 			updateList();
 		}
 	}
+	/**
+	 * listens for button press of the modify room button
+	 */
 	private class ModifyRoomListener implements ActionListener {
+		/**
+		 * opens the selected room for modification in the room manager
+		 */
 		public void actionPerformed(ActionEvent e) {
 			RoomManager dialog = new RoomManager(thisFrame, project.getRoomAtIndex(roomListBox.getSelectedIndex()));
 			Room result = dialog.showDialog();
@@ -97,7 +120,14 @@ public class ProjectManager extends JFrame {
 			updateList();
 		}
 	}
+	
+	/**
+	 * listens for button press of the modify room button
+	 */
 	private class DeleteRoomListener implements ActionListener {
+		/**
+		 * prompts for deletion of selected room
+		 */
 		public void actionPerformed(ActionEvent e) {
 			if (JOptionPane.showConfirmDialog(
 					null,
@@ -109,7 +139,13 @@ public class ProjectManager extends JFrame {
 			updateList();
 		}
 	}
+	/** 
+	 * listens for button press of create report button
+	 */
 	private class CreateReportListener implements ActionListener {
+		/**
+		 * creates a report of the project
+		 */
 		public void actionPerformed(ActionEvent e) {
 			// TODO code for event
 			// should open report selection screen
