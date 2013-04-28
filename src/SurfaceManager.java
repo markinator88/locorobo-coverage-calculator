@@ -213,33 +213,19 @@ public class SurfaceManager extends JDialog {
 		deleteCutoutButton = new JButton("Delete Cutout");
 		deleteCutoutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
-				
-				
-				try {
-					
-					workingSurface.removeCutout(cutoutTextArea.getSelectedIndex());
-					cutoutTextArea.setListData(workingSurface.toStringArray());
 
+				try {
+
+					workingSurface.removeCutout(cutoutTextArea
+							.getSelectedIndex());
+					cutoutTextArea.setListData(workingSurface.toStringArray());
 
 				} // End of try block
 				catch (ArrayIndexOutOfBoundsException e) {
-					JOptionPane.showMessageDialog(null, "You must select a cutout");
+					JOptionPane.showMessageDialog(null,
+							"You must select a cutout");
 				} // End of catch ArrayIndexOutOfBoundsException
-				
-				
-				
-				
-				
-				
-				
-				
-				
-			
-				
-				
-				
-		
+
 			}
 		});
 		GridBagConstraints gbc_deleteCutoutButton = new GridBagConstraints();
@@ -336,7 +322,13 @@ public class SurfaceManager extends JDialog {
 		 * saves the surface
 		 */
 		public void actionPerformed(ActionEvent e) {
-			saveSurface();
+			try {
+				saveSurface();
+			} // End of try block
+			catch (NumberFormatException e1) {
+				JOptionPane.showMessageDialog(null,
+						"Surface Size input must be a number.");
+			} // End of catch NumberFormatException
 
 		}
 
@@ -344,6 +336,7 @@ public class SurfaceManager extends JDialog {
 		 * creates a new Surface Object
 		 */
 		private void saveSurface() {
+
 			workingSurface.setName(surfaceNameTextField.getText());
 			surfaceXdim = Double.parseDouble(surfaceX.getText());
 			surfaceYdim = Double.parseDouble(surfaceY.getText());
