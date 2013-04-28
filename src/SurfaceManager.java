@@ -1,4 +1,5 @@
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -27,23 +28,24 @@ public class SurfaceManager extends JDialog {
 	private JLabel lblCutoutSize;
 	private JButton AddCutout;
 	private JLabel lblSurfaceList;
-	private JTextArea cutoutTextArea;
+	private JList cutoutTextArea;
 	private JTextField surfaceNameTextField;
 	int surfaceType;
-	String surfaceTypeReader; 
-	int cutoutType; 
+	String surfaceTypeReader;
+	int cutoutType;
 	private Double surfaceXdim;
-	private Double surfaceYdim; 
-	
+	private Double surfaceYdim;
+	private JButton deleteCutoutButton;
+
 	/**
 	 * creates a surface manager dialog for a specified surface
+	 * 
 	 * @param owner
 	 * @param surface
 	 */
 	public SurfaceManager(Dialog owner, Surface s) {
 		super(owner, true);
-		
-		
+
 		setSize(new Dimension(700, 474));
 		getContentPane().setBackground(
 				UIManager.getColor("InternalFrame.activeTitleGradient"));
@@ -56,19 +58,16 @@ public class SurfaceManager extends JDialog {
 		setBounds(200, 200, 700, 400);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 0, 133, 117, 0, 0, 0 };
-		gridBagLayout.rowHeights = new int[] { 0, -37, 0, 37, 87, 43, 0, 90, 30,
+		gridBagLayout.rowHeights = new int[] { 0, -37, 0, 0, 0, 43, 0, 0, 30,
 				30, 5, 0, 0, 0 };
 		gridBagLayout.columnWeights = new double[] { 1.0, 1.0, 1.0,
 				Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0, 0.0,
-				0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 		getContentPane().setLayout(gridBagLayout);
 
-		 
-		
 		String[] data = { "Trim", "Paint", "Floor Tile" };
-		
-		
+
 		surfaceNameTextField = new JTextField();
 		surfaceNameTextField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		surfaceNameTextField.setText("Enter Name of Surface");
@@ -79,32 +78,33 @@ public class SurfaceManager extends JDialog {
 		gbc_surfaceNameTextField.gridy = 1;
 		getContentPane().add(surfaceNameTextField, gbc_surfaceNameTextField);
 		surfaceNameTextField.setColumns(10);
-		
-				lblChooseMaterial = new JLabel("Choose Material");
-				lblChooseMaterial.setFont(new Font("Tahoma", Font.PLAIN, 14));
-				GridBagConstraints gbc_lblChooseMaterial = new GridBagConstraints();
-				gbc_lblChooseMaterial.insets = new Insets(0, 0, 5, 5);
-				gbc_lblChooseMaterial.gridx = 0;
-				gbc_lblChooseMaterial.gridy = 3;
-				getContentPane().add(lblChooseMaterial, gbc_lblChooseMaterial);
-		
-				lblSurfaceSize = new JLabel("Surface Size");
-				lblSurfaceSize.setFont(new Font("Tahoma", Font.PLAIN, 14));
-				GridBagConstraints gbc_lblSurfaceSize = new GridBagConstraints();
-				gbc_lblSurfaceSize.insets = new Insets(0, 0, 5, 5);
-				gbc_lblSurfaceSize.gridx = 1;
-				gbc_lblSurfaceSize.gridy = 3;
-				getContentPane().add(lblSurfaceSize, gbc_lblSurfaceSize);
-		
-				MaterialComboBox = new JComboBox();
-				MaterialComboBox.setModel(new DefaultComboBoxModel(data));
-				GridBagConstraints gbc_MaterialComboBox = new GridBagConstraints();
-				gbc_MaterialComboBox.insets = new Insets(0, 0, 5, 5);
-				gbc_MaterialComboBox.fill = GridBagConstraints.HORIZONTAL;
-				gbc_MaterialComboBox.gridx = 0;
-				gbc_MaterialComboBox.gridy = 4;
-				getContentPane().add(MaterialComboBox, gbc_MaterialComboBox);
+
+		lblChooseMaterial = new JLabel("Choose Material");
+		lblChooseMaterial.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_lblChooseMaterial = new GridBagConstraints();
+		gbc_lblChooseMaterial.insets = new Insets(0, 0, 5, 5);
+		gbc_lblChooseMaterial.gridx = 0;
+		gbc_lblChooseMaterial.gridy = 3;
+		getContentPane().add(lblChooseMaterial, gbc_lblChooseMaterial);
+
+		lblSurfaceSize = new JLabel("Surface Size (inches)");
+		lblSurfaceSize.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_lblSurfaceSize = new GridBagConstraints();
+		gbc_lblSurfaceSize.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSurfaceSize.gridx = 1;
+		gbc_lblSurfaceSize.gridy = 3;
+		getContentPane().add(lblSurfaceSize, gbc_lblSurfaceSize);
+
+		MaterialComboBox = new JComboBox();
+		MaterialComboBox.setModel(new DefaultComboBoxModel(data));
+		GridBagConstraints gbc_MaterialComboBox = new GridBagConstraints();
+		gbc_MaterialComboBox.insets = new Insets(0, 0, 5, 5);
+		gbc_MaterialComboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_MaterialComboBox.gridx = 0;
+		gbc_MaterialComboBox.gridy = 4;
+		getContentPane().add(MaterialComboBox, gbc_MaterialComboBox);
 		surfaceX = new JTextField();
+		surfaceX.setToolTipText("Enter value in inches");
 		surfaceX.setText("Height/Legth");
 		GridBagConstraints gbc_surfaceX = new GridBagConstraints();
 		gbc_surfaceX.fill = GridBagConstraints.BOTH;
@@ -112,15 +112,16 @@ public class SurfaceManager extends JDialog {
 		gbc_surfaceX.gridx = 1;
 		gbc_surfaceX.gridy = 4;
 		getContentPane().add(surfaceX, gbc_surfaceX);
-		
-				surfaceY = new JTextField();
-				surfaceY.setText("Width");
-				GridBagConstraints gbc_surfaceY = new GridBagConstraints();
-				gbc_surfaceY.insets = new Insets(0, 0, 5, 5);
-				gbc_surfaceY.fill = GridBagConstraints.HORIZONTAL;
-				gbc_surfaceY.gridx = 2;
-				gbc_surfaceY.gridy = 4;
-				getContentPane().add(surfaceY, gbc_surfaceY);
+
+		surfaceY = new JTextField();
+		surfaceY.setToolTipText("Enter a value in inches");
+		surfaceY.setText("Width");
+		GridBagConstraints gbc_surfaceY = new GridBagConstraints();
+		gbc_surfaceY.insets = new Insets(0, 0, 5, 5);
+		gbc_surfaceY.fill = GridBagConstraints.HORIZONTAL;
+		gbc_surfaceY.gridx = 2;
+		gbc_surfaceY.gridy = 4;
+		getContentPane().add(surfaceY, gbc_surfaceY);
 
 		lblChooseCutoutType = new JLabel("Choose Cutout Type");
 		lblChooseCutoutType.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -131,7 +132,7 @@ public class SurfaceManager extends JDialog {
 		gbc_lblChooseCutoutType.gridy = 5;
 		getContentPane().add(lblChooseCutoutType, gbc_lblChooseCutoutType);
 
-		lblCutoutSize = new JLabel("Cutout Size");
+		lblCutoutSize = new JLabel("Cutout Size (inches)");
 		lblCutoutSize.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblCutoutSize = new GridBagConstraints();
 		gbc_lblCutoutSize.anchor = GridBagConstraints.SOUTH;
@@ -161,6 +162,7 @@ public class SurfaceManager extends JDialog {
 		getContentPane().add(CutoutTypeComboBox, gbc_CutoutTypeComboBox);
 
 		cutoutX = new JTextField();
+		cutoutX.setToolTipText("Enter a value in inches");
 		cutoutX.setText("Height");
 		cutoutX.setColumns(10);
 		GridBagConstraints gbc_cutoutX = new GridBagConstraints();
@@ -171,6 +173,7 @@ public class SurfaceManager extends JDialog {
 		getContentPane().add(cutoutX, gbc_cutoutX);
 
 		cutoutY = new JTextField();
+		cutoutY.setToolTipText("Enter a value in inches");
 		cutoutY.setText("Width");
 		cutoutY.setColumns(10);
 		GridBagConstraints gbc_cutoutY = new GridBagConstraints();
@@ -198,37 +201,76 @@ public class SurfaceManager extends JDialog {
 		gbc_lblSurfaceList.gridy = 7;
 		getContentPane().add(lblSurfaceList, gbc_lblSurfaceList);
 
-		cutoutTextArea = new JTextArea();
-		cutoutTextArea.setRows(1);
+		cutoutTextArea = new JList();
+		// cutoutTextArea.setRows(1);
 		GridBagConstraints gbc_cutoutTextArea = new GridBagConstraints();
 		gbc_cutoutTextArea.insets = new Insets(0, 0, 5, 5);
 		gbc_cutoutTextArea.fill = GridBagConstraints.BOTH;
 		gbc_cutoutTextArea.gridx = 2;
 		gbc_cutoutTextArea.gridy = 7;
 		getContentPane().add(cutoutTextArea, gbc_cutoutTextArea);
-		
-				JButton exitNoSaveButton = new JButton("Exit Without Saving");
-				exitNoSaveButton.addActionListener(new ExitNoSaveListener());
+
+		deleteCutoutButton = new JButton("Delete Cutout");
+		deleteCutoutButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				
-						// Button that saves all the information gathered for the surface
-						JButton saveExitButton = new JButton("Save and Exit");
-						saveExitButton.addActionListener(new SaveExitListener());
-						GridBagConstraints gbc_saveExitButton = new GridBagConstraints();
-						gbc_saveExitButton.fill = GridBagConstraints.BOTH;
-						gbc_saveExitButton.insets = new Insets(0, 0, 5, 5);
-						gbc_saveExitButton.gridx = 1;
-						gbc_saveExitButton.gridy = 10;
-						getContentPane().add(saveExitButton, gbc_saveExitButton);
-				GridBagConstraints gbc_exitNoSaveButton = new GridBagConstraints();
-				gbc_exitNoSaveButton.insets = new Insets(0, 0, 5, 5);
-				gbc_exitNoSaveButton.fill = GridBagConstraints.HORIZONTAL;
-				gbc_exitNoSaveButton.gridx = 1;
-				gbc_exitNoSaveButton.gridy = 11;
-				getContentPane().add(exitNoSaveButton, gbc_exitNoSaveButton);
+				
+				
+				try {
+					
+					workingSurface.removeCutout(cutoutTextArea.getSelectedIndex());
+					cutoutTextArea.setListData(workingSurface.toStringArray());
+
+
+				} // End of try block
+				catch (ArrayIndexOutOfBoundsException e) {
+					JOptionPane.showMessageDialog(null, "You must select a cutout");
+				} // End of catch ArrayIndexOutOfBoundsException
+				
+				
+				
+				
+				
+				
+				
+				
+				
+			
+				
+				
+				
+		
+			}
+		});
+		GridBagConstraints gbc_deleteCutoutButton = new GridBagConstraints();
+		gbc_deleteCutoutButton.insets = new Insets(0, 0, 5, 5);
+		gbc_deleteCutoutButton.gridx = 0;
+		gbc_deleteCutoutButton.gridy = 8;
+		getContentPane().add(deleteCutoutButton, gbc_deleteCutoutButton);
+
+		// Button that saves all the information gathered for the surface
+		JButton saveExitButton = new JButton("Save and Exit");
+		saveExitButton.addActionListener(new SaveExitListener());
+		GridBagConstraints gbc_saveExitButton = new GridBagConstraints();
+		gbc_saveExitButton.fill = GridBagConstraints.BOTH;
+		gbc_saveExitButton.insets = new Insets(0, 0, 5, 5);
+		gbc_saveExitButton.gridx = 1;
+		gbc_saveExitButton.gridy = 9;
+		getContentPane().add(saveExitButton, gbc_saveExitButton);
+
+		JButton exitNoSaveButton = new JButton("Exit Without Saving");
+		exitNoSaveButton.addActionListener(new ExitNoSaveListener());
+		GridBagConstraints gbc_exitNoSaveButton = new GridBagConstraints();
+		gbc_exitNoSaveButton.insets = new Insets(0, 0, 5, 5);
+		gbc_exitNoSaveButton.fill = GridBagConstraints.HORIZONTAL;
+		gbc_exitNoSaveButton.gridx = 1;
+		gbc_exitNoSaveButton.gridy = 10;
+		getContentPane().add(exitNoSaveButton, gbc_exitNoSaveButton);
 	}
-	
+
 	/**
 	 * makes dialog visible and returns surface when finished
+	 * 
 	 * @return
 	 */
 	public Surface showDialog() {
@@ -237,42 +279,49 @@ public class SurfaceManager extends JDialog {
 		return startingSurface;
 	}
 
+	private void updateList() {
+		cutoutTextArea.setListData(workingSurface.toStringArray());
+		this.validate();
+	}
+
 	/*
 	 * private class ModifySurfaceListener implements ActionListener { public
 	 * void actionPerformed(ActionEvent e) { } } private class
 	 * DeleteSurfaceListener implements ActionListener { public void
 	 * actionPerformed(ActionEvent e) { } }
 	 */
-	
-	/** 
+
+	/**
 	 * Listener for the Save cut out Button - calls the createCutout method
 	 */
 	public class SaveCutoutListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			// Calls createCutout method
 			createCutout();
+
 		}
 	}
 
-	/** Method that is used to create the cut out dimensions. Called from the
-	 *  SaveCutoutListener 
+	/**
+	 * Method that is used to create the cut out dimensions. Called from the
+	 * SaveCutoutListener
 	 */
 	private void createCutout() {
 		try {
-		String cutoutType = (CutoutTypeComboBox.getSelectedItem().toString());
-		double cutoutXdim = Double.parseDouble(cutoutX.getText());
-		double cutoutYdim = Double.parseDouble(cutoutY.getText());
-		cutoutTextArea.append((cutoutType) + ", Width=" + cutoutXdim
-				+ ", Height=" + cutoutYdim + ": \n");
-		Cutout cutout = new Cutout(cutoutType, cutoutXdim, cutoutYdim) ; 
-		workingSurface.addCutout(cutout);  
-		
-	} // End of try block
+			String cutoutType = (CutoutTypeComboBox.getSelectedItem()
+					.toString());
+			double cutoutXdim = Double.parseDouble(cutoutX.getText());
+			double cutoutYdim = Double.parseDouble(cutoutY.getText());
+			Cutout cutout = new Cutout(cutoutType, cutoutXdim, cutoutYdim);
+			workingSurface.addCutout(cutout);
+			cutoutTextArea.setListData(workingSurface.toStringArray());
+			this.validate();
+
+		} // End of try block
 		catch (NumberFormatException e) {
-			JOptionPane.showMessageDialog(null,"Input must be a number.");
-			//e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Input must be a number.");
 		} // End of catch NumberFormatException
-		
+
 	}
 
 	// private class SaveEmxitListener implements ActionListener {
@@ -288,7 +337,7 @@ public class SurfaceManager extends JDialog {
 		 */
 		public void actionPerformed(ActionEvent e) {
 			saveSurface();
-		
+
 		}
 
 		/**
@@ -298,33 +347,31 @@ public class SurfaceManager extends JDialog {
 			workingSurface.setName(surfaceNameTextField.getText());
 			surfaceXdim = Double.parseDouble(surfaceX.getText());
 			surfaceYdim = Double.parseDouble(surfaceY.getText());
-			surfaceTypeFinder(); 
+			surfaceTypeFinder();
 			workingSurface.setSurfaceXdim(surfaceXdim);
 			workingSurface.setSurfaceYdim(surfaceYdim);
-			workingSurface.setSurfaceType(surfaceType); 
+			workingSurface.setSurfaceType(surfaceType);
 			startingSurface = workingSurface;
 			thisDialog.setVisible(false);
 			thisDialog.dispose();
 		}
-		
+
 		private void surfaceTypeFinder() {
-		surfaceTypeReader = (MaterialComboBox.getSelectedItem().toString());
-		if (surfaceTypeReader.equals("Paint")) {
-		surfaceType = TYPE_PAINT;
+			surfaceTypeReader = (MaterialComboBox.getSelectedItem().toString());
+			if (surfaceTypeReader.equals("Paint")) {
+				surfaceType = TYPE_PAINT;
+			} else if (surfaceTypeReader.equals("Tile")) {
+				surfaceType = TYPE_TILE;
+			}
+
+			else if (surfaceTypeReader.equals("Trim")) {
+				surfaceType = TYPE_TRIM;
+			}
+
 		}
-		else if (surfaceTypeReader.equals("Tile")) {
-		surfaceType = TYPE_TILE;
-		}
-												
-		else if (surfaceTypeReader.equals("Trim")) {
-		 surfaceType = TYPE_TRIM;
-		}
-															
-		}
-		
-		
+
 	}
-	
+
 	/**
 	 * listens for button press on exit without saving button
 	 */

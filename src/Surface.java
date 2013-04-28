@@ -193,7 +193,7 @@ public class Surface {
 	public String[] toStringArray() {
 		String returnArray[] = new String[cutoutList.size()];
 		for (int n=0; n<cutoutList.size(); n++) {
-			returnArray[n] = cutoutList.get(n).getName();
+			returnArray[n] = cutoutList.get(n).getCutoutType() + " " + cutoutList.get(n).getCutoutXdim() + " x " + cutoutList.get(n).getCutoutYdim();
 		}
 		return returnArray;
 	}
