@@ -1,17 +1,46 @@
 import javax.swing.*;
+import java.util.*;
 import java.awt.*;
 
 public class Report extends JDialog {
 
+	
+	double totalPaint;
+//	double totalTrim = 0.000;
+//	double totalTiles = 0.000;
+//	double paintVolume = 0.00;
+	double paints;
+	double trimAmount = 0.00;
+	double sqftTiles = 0.00;
+	final double toFeet = 12; //This will convert the dimensions given into feet.
+	final double calcPaint = 250; //1 gallon of paint to cover 250 sqft.
+	
 	/**
 	 * Create the panel.
 	 */
-	 
-	private Project project; 
-	
+	private Project project;
+	private Project room;
+
 	public Report (Project p) {
+		
+		this.project = p;
+	//	Room r = p.getRoomAtIndex(0);				
 		setLocation(new Point(400, 200));
 		setSize(new Dimension(600, 400));
+	
+		for(int m=0; m<project.getListSize(); m++) { //cycle through rooms
+		    Room r = p.getRoomAtIndex(m);
+			// code for displaying room name
+		    for(int n=0; n<room.getListSize(); n++) {  //cycle through surfaces
+		    	// code for displaying surface name
+		    	
+		        // code for getting materials needed for each surface 
+		    	
+		        // code for adding materials for surface to total materials 
+		    	
+		    } 
+		}
+
 				
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{153, 143, 0};
@@ -38,8 +67,8 @@ public class Report extends JDialog {
 		gbc_lblNewLabel.gridy = 2;
 		getContentPane().add(lblNewLabel, gbc_lblNewLabel);
 		
-		final double totalPaint = 0.000;
-		JLabel PaintLabel = new JLabel(" "+totalPaint+" gallons");
+		paints = BuyPaint();
+		JLabel PaintLabel = new JLabel(" "+paints+" gallons");
 		GridBagConstraints gbc_PaintLabel = new GridBagConstraints();
 		gbc_PaintLabel.insets = new Insets(0, 0, 5, 0);
 		gbc_PaintLabel.fill = GridBagConstraints.BOTH;
@@ -56,7 +85,7 @@ public class Report extends JDialog {
 		gbc_lblNewLabel_1.gridy = 4;
 		getContentPane().add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
-		final double totalTrim = 0.000;
+		
 		JLabel TrimLabel = new JLabel(" " +totalTrim+" feet");
 		GridBagConstraints gbc_TrimLabel = new GridBagConstraints();
 		gbc_TrimLabel.insets = new Insets(0, 0, 5, 0);
@@ -76,7 +105,7 @@ public class Report extends JDialog {
 		gbc_lblNewLabel_2.gridy = 6;
 		getContentPane().add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
-		final double totalTiles = 0.000;
+		
 		JLabel TilesLabel = new JLabel(" "+totalTiles+" square feet.");
 		GridBagConstraints gbc_TilesLabel = new GridBagConstraints();
 		gbc_TilesLabel.insets = new Insets(0, 0, 5, 0);
@@ -107,4 +136,22 @@ public class Report extends JDialog {
 		getContentPane().add(CutLabel, gbc_CutLabel);
 
 	}
+	
+	public double BuyPaint() {
+		double paintVolume = 100/calcPaint;
+		return paintVolume;
+	}
+	
+	public double BuyTiles() {
+		double totalTiles = 100;
+		return totalTiles;
+	}
+	
+	public double BuyTrim() {
+		double totalTrim = 0;
+		return totalTrim;
+	}
+
 }
+	
+
