@@ -10,14 +10,14 @@ public class CoverageCalculator {
 	 * @param args
 	 */
 	public static void main(String[] args){
-		//try {
-			//LinkedList<Material> materialsList = TabSeparatedFileReader.readFiles();
-			ProjectManager frame = new ProjectManager(new Project());
+		try {
+			LinkedList<Material> materialsList = TabSeparatedFileReader.readFiles();
+			ProjectManager frame = new ProjectManager(new Project(materialsList));
 			frame.setVisible(true);
-		/*}
+		}
 		catch (Exception e) {
 			e.printStackTrace();
-		}*/
+		}
 		
 	}
 }

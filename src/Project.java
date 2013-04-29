@@ -6,14 +6,14 @@ import java.util.*;
 public class Project {
 	private ArrayList<Room> roomList = new ArrayList<Room>();
 	private String projectName = new String();
-	private LinkedList<Material> materialsList;
+	static LinkedList<Material> materialsList;
 	
 	/**
 	 * 
 	 */
-	/*public Project() {
-		//this.materialsList = m;
-	}*/
+	public Project(LinkedList<Material> m) {
+		Project.materialsList = m;
+	}
 	
 	/**
 	 * adds a room to the project

@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * GUI components to view and modify a surface
@@ -36,6 +37,7 @@ public class SurfaceManager extends JDialog {
 	private Double surfaceXdim;
 	private Double surfaceYdim;
 	private JButton deleteCutoutButton;
+	private LinkedList<Material> materials = Project.materialsList; 
 
 	/**
 	 * creates a surface manager dialog for a specified surface
@@ -66,8 +68,17 @@ public class SurfaceManager extends JDialog {
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
 		getContentPane().setLayout(gridBagLayout);
 
-		String[] data = { "Trim", "Paint", "Floor Tile" };
-
+		//Converts the LinkedList to an Array
+		//The array is used to populate the list of materials in the MaterialComboBox
+		Material [] data = new Material [materials.size()];
+		String [] data2 = new String [materials.size()] ; 
+		
+		for (int i = 0 ; i<materials.size(); i++){
+			data[i]= materials.get(i) ; 
+			Material potpie = data[i] ;  
+			data2[i]= potpie.getName();
+		}
+		
 		surfaceNameTextField = new JTextField();
 		surfaceNameTextField.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		surfaceNameTextField.setText("Enter Name of Surface");
@@ -96,7 +107,7 @@ public class SurfaceManager extends JDialog {
 		getContentPane().add(lblSurfaceSize, gbc_lblSurfaceSize);
 
 		MaterialComboBox = new JComboBox();
-		MaterialComboBox.setModel(new DefaultComboBoxModel(data));
+		MaterialComboBox.setModel(new DefaultComboBoxModel(data2));
 		GridBagConstraints gbc_MaterialComboBox = new GridBagConstraints();
 		gbc_MaterialComboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_MaterialComboBox.fill = GridBagConstraints.HORIZONTAL;
@@ -144,16 +155,15 @@ public class SurfaceManager extends JDialog {
 		/*
 		 * Creates a comboBox with a list of cut out options. This list will be
 		 * used to calculate the area to be removed from the surface area
-		 * calculations. The surface types are 'door", "window", and "other" and
-		 * this effects the amount of trim that will be uses. The "other" and
-		 * "window" option will account for trim on all for sides while "door"
-		 * will only calculate on 3 sides.
+		 * calculations. The surface types are 'door" and "window" and
+		 * this effects the amount of trim that will be used. The "window" option will account for trim
+		 *  on all for sides while "door" will only calculate on 3 sides.
 		 */
 
 		CutoutTypeComboBox = new JComboBox();
 		// CutoutTypeComboBox.addActionListener(new SaveCutoutListener());
 		CutoutTypeComboBox.setModel(new DefaultComboBoxModel(new String[] {
-				"Door", "Window", "Other" }));
+				"Door", "Window"}));
 		GridBagConstraints gbc_CutoutTypeComboBox = new GridBagConstraints();
 		gbc_CutoutTypeComboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_CutoutTypeComboBox.fill = GridBagConstraints.HORIZONTAL;

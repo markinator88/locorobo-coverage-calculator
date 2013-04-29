@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.LinkedList;
 
 /**
  * GUI controls that allow viewing and manipulation of the room
@@ -12,6 +13,7 @@ public class RoomManager extends JDialog {
 	private JList surfaceListBox;
 	private Room startingRoom;
 	private Room workingRoom;
+	
 	
 	/**
 	 * creates this dialog to modify a room
