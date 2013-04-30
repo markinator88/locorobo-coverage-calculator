@@ -22,7 +22,8 @@ public class ProjectReport extends JDialog {
 	final double toFeet = 12; // This will convert the dimensions given into
 								// feet.
 	final double calcPaint = 200; // 1 gallon of paint to cover 250 sqft.
-
+	final double calcTrim  = 10; 
+	final double calcTile = 9; 
 	private Project project;
 	private Project room;
 	private JDialog thisDialog = this;
@@ -35,6 +36,8 @@ public class ProjectReport extends JDialog {
 	private JTextArea totalCostProjectTextField;
 	private JButton closeReportLabel;
 	private double paintCutoutTotal; 
+	private double tileCutoutTotal;
+	private double trimCutoutTotal; 
 	private double tileTotalAmount;
 	private double tileTotalCost;
 	private double paintTotalAmount;
@@ -251,40 +254,102 @@ public class ProjectReport extends JDialog {
 				Surface s = r.getSurfaceAtIndex(n);
 				String surfaceName = s.getSurfaceName();
 				double paintArea = paintAmount(s); 
-				
+				double tileArea  = tileAmount(s);
+				double trimArea = trimAmount(s); 
 				surfaceListingTextArea.append(surfaceName + "\n");
 				if (s.getListSize() == 0){  // used to give paintTotal if there are no cutouts
+					
 					paintTotalAmount = paintTotalAmount + (paintArea - paintCutoutTotal); 
+					trimTotalAmount = trimTotalAmount + (trimArea - trimCutoutTotal); 
+					tileTotalAmount = tileTotalAmount + (tileArea - tileCutoutTotal); 
 					
 				}
 				
 				for (int j = 0; j < s.getListSize(); j++) { // cycle through cutouts
 					String cutoutType = s.getCutoutAtIndex(j).getCutoutType();
 					cutoutListingTextArea.append(cutoutType + "\n");
+					if (s.getCutoutAtIndex(j).getCutoutType() == "Paint") { 
 					paintCutoutTotal = paintCutout(s.getCutoutAtIndex(j));  
 					paintTotalAmount = paintTotalAmount + (paintArea - paintCutoutTotal); 
-				
+					}
+					
+					else if (s.getCutoutAtIndex(j).getCutoutType() == "Trim"){
+						
+						trimCutoutTotal = trimCutout(s.getCutoutAtIndex(j));  
+						trimTotalAmount = trimTotalAmount + (paintArea - trimCutoutTotal); 
+						
+						}
+					
+					else {
+						
+						tileCutoutTotal = tileCutout(s.getCutoutAtIndex(j));  
+						tileTotalAmount = tileTotalAmount + (tileArea - tileCutoutTotal); 
+					}
 				}
 			}
 
 		}  //End of for loops
 		
+		
+		
+		//calculations and display of paint amount and cost
 		paintTotalAmount = paintTotalAmount / calcPaint; 
 		paintTotalCost = paintTotalAmount * 9.95; 
 		paintAmountTextField.append(Double.toString(Math.ceil(paintTotalAmount)) + " gals"); 
 		paintCostTextField.append("$" +Double.toString(Math.ceil(paintTotalCost)) + "0"); 
 		
+		//calculations and display of tile amount and cost
+		tileTotalAmount = tileTotalAmount / calcTile; 
+		tileTotalCost = tileTotalAmount * 9.95; 
+		tileAmountTextField.append(Double.toString(Math.ceil(tileTotalAmount)) + " Sqft"); 
+		tileCostTextField.append("$" +Double.toString(Math.ceil(tileTotalCost)) + "0"); 
+		
+		//calculations and display of trim amount and cost
+		trimTotalAmount = (trimTotalAmount / 12) / calcTrim; 
+		trimTotalCost = trimTotalAmount * 9.95; 
+		trimAmountTextField.append(Double.toString(Math.ceil(trimTotalAmount)) + " feet"); 
+		trimCostTextField.append("$" +Double.toString(Math.ceil(trimTotalCost)) + "0"); 
+		
 	} //End of ProjectReport Class
 	
 
 	 
-	public double paintCutout (Cutout c){
+	private double tileCutout(Cutout c ) {
+		double totalTileCutout = 0; 
+		totalTileCutout = totalTileCutout + (c.getCutoutXdim() * c.getCutoutYdim());
+		return totalTileCutout;
+	}
+
+
+
+	private double trimCutout(Cutout c) {
 		double totalPaintCutout = 0; 
-		totalPaintCutout = totalPaintCutout + (c.getCutoutXdim() * c.getCutoutYdim());
+		totalPaintCutout = totalPaintCutout + ((c.getCutoutXdim() * 2) + (c.getCutoutYdim() * 2));
 		return totalPaintCutout;
-		
+	}
+
+
+
+	private double trimAmount(Surface s) {
+		double trimArea = 0; 
+		double xdim = s.getSurfaceXdim(); 
+		double ydim = s.getSurfaceYdim();
+		trimArea = xdim ; 
+		return trimArea;
 	}
 	
+
+
+
+	private double tileAmount(Surface s) {
+		double tileArea = 0; 
+		double xdim = s.getSurfaceXdim(); 
+		double ydim = s.getSurfaceYdim();
+		tileArea = xdim * ydim ; 
+		return tileArea;
+	}
+	
+
 	
 	public double paintAmount (Surface s) {
 		
@@ -294,5 +359,16 @@ public class ProjectReport extends JDialog {
 		paintArea = xdim * ydim ; 
 		return paintArea;
 	}
+	
+	
+	public double paintCutout (Cutout c){
+		double totalPaintCutout = 0; 
+		totalPaintCutout = totalPaintCutout + (c.getCutoutXdim() * c.getCutoutYdim());
+		return totalPaintCutout;
+		
+	}
+	
+	
+	
 	
 }
