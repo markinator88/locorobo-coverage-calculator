@@ -21,20 +21,20 @@ public class ProjectReport extends JDialog {
 
 	final double toFeet = 12; // This will convert the dimensions given into
 								// feet.
-	final double calcPaint = 250; // 1 gallon of paint to cover 250 sqft.
+	final double calcPaint = 200; // 1 gallon of paint to cover 250 sqft.
 
 	private Project project;
 	private Project room;
 	private JDialog thisDialog = this;
 	private JTextArea paintAmountTextField;
-	private JTextField tileAmountTextField;
-	private JTextField trimAmountTextField;
-	private JTextField paintCostTextField;
-	private JTextField tileCostTextField;
-	private JTextField trimCostTextField;
-	private JTextField totalCostProjectTextField;
+	private JTextArea tileAmountTextField;
+	private JTextArea trimAmountTextField;
+	private JTextArea paintCostTextField;
+	private JTextArea tileCostTextField;
+	private JTextArea trimCostTextField;
+	private JTextArea totalCostProjectTextField;
 	private JButton closeReportLabel;
-
+	private double paintCutoutTotal; 
 	private double tileTotalAmount;
 	private double tileTotalCost;
 	private double paintTotalAmount;
@@ -147,7 +147,7 @@ public class ProjectReport extends JDialog {
 		getContentPane().add(paintAmountTextField, gbc_paintAmountTextField);
 		paintAmountTextField.setColumns(10);
 
-		paintCostTextField = new JTextField();
+		paintCostTextField = new JTextArea();
 		GridBagConstraints gbc_paintCostTextField = new GridBagConstraints();
 		gbc_paintCostTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_paintCostTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -164,7 +164,7 @@ public class ProjectReport extends JDialog {
 		gbc_lblTotalTileNeeded.gridy = 4;
 		getContentPane().add(lblTotalTileNeeded, gbc_lblTotalTileNeeded);
 
-		tileAmountTextField = new JTextField();
+		tileAmountTextField = new JTextArea();
 		GridBagConstraints gbc_tileAmountTextField = new GridBagConstraints();
 		gbc_tileAmountTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_tileAmountTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -173,7 +173,7 @@ public class ProjectReport extends JDialog {
 		getContentPane().add(tileAmountTextField, gbc_tileAmountTextField);
 		tileAmountTextField.setColumns(10);
 
-		tileCostTextField = new JTextField();
+		tileCostTextField = new JTextArea();
 		GridBagConstraints gbc_tileCostTextField = new GridBagConstraints();
 		gbc_tileCostTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_tileCostTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -190,7 +190,7 @@ public class ProjectReport extends JDialog {
 		gbc_lblTotalTrimNeeded.gridy = 5;
 		getContentPane().add(lblTotalTrimNeeded, gbc_lblTotalTrimNeeded);
 
-		trimAmountTextField = new JTextField();
+		trimAmountTextField = new JTextArea();
 		GridBagConstraints gbc_trimAmountTextField = new GridBagConstraints();
 		gbc_trimAmountTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_trimAmountTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -199,7 +199,7 @@ public class ProjectReport extends JDialog {
 		getContentPane().add(trimAmountTextField, gbc_trimAmountTextField);
 		trimAmountTextField.setColumns(10);
 
-		trimCostTextField = new JTextField();
+		trimCostTextField = new JTextArea();
 		GridBagConstraints gbc_trimCostTextField = new GridBagConstraints();
 		gbc_trimCostTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_trimCostTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -216,7 +216,7 @@ public class ProjectReport extends JDialog {
 		gbc_lblTotalCostOf.gridy = 7;
 		getContentPane().add(lblTotalCostOf, gbc_lblTotalCostOf);
 
-		totalCostProjectTextField = new JTextField();
+		totalCostProjectTextField = new JTextArea();
 		GridBagConstraints gbc_totalCostProjectTextField = new GridBagConstraints();
 		gbc_totalCostProjectTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_totalCostProjectTextField.fill = GridBagConstraints.HORIZONTAL;
@@ -247,25 +247,33 @@ public class ProjectReport extends JDialog {
 			roomListingTextArea.append(roomName + "\n");
 				
 					
-			for (int n = 0; n < r.getListSize(); n++) {
+			for (int n = 0; n < r.getListSize(); n++) {  // cycle through surfaces
 				Surface s = r.getSurfaceAtIndex(n);
 				String surfaceName = s.getSurfaceName();
-				double paintSize = paintAmount(s); 
+				double paintArea = paintAmount(s); 
 				
 				surfaceListingTextArea.append(surfaceName + "\n");
-				// cycle through surfaces
-				for (int j = 0; j < s.getListSize(); j++) {
+				if (s.getListSize() == 0){  // used to give paintTotal if there are no cutouts
+					paintTotalAmount = paintTotalAmount + (paintArea - paintCutoutTotal); 
+					
+				}
+				
+				for (int j = 0; j < s.getListSize(); j++) { // cycle through cutouts
 					String cutoutType = s.getCutoutAtIndex(j).getCutoutType();
 					cutoutListingTextArea.append(cutoutType + "\n");
-					double cutoutTotal = paintCutout(s.getCutoutAtIndex(j));  
-					paintTotalAmount = paintTotalAmount + paintSize - cutoutTotal; 
+					paintCutoutTotal = paintCutout(s.getCutoutAtIndex(j));  
+					paintTotalAmount = paintTotalAmount + (paintArea - paintCutoutTotal); 
+				
 				}
 			}
 
 		}  //End of for loops
 		
-		paintAmountTextField.append(Double.toString(paintTotalAmount)); 
-
+		paintTotalAmount = paintTotalAmount / calcPaint; 
+		paintTotalCost = paintTotalAmount * 9.95; 
+		paintAmountTextField.append(Double.toString(Math.ceil(paintTotalAmount)) + " gals"); 
+		paintCostTextField.append("$" +Double.toString(Math.ceil(paintTotalCost)) + "0"); 
+		
 	} //End of ProjectReport Class
 	
 
