@@ -16,6 +16,11 @@ import java.awt.Color;
 import javax.swing.UIManager;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
+import java.awt.Dialog.ModalityType;
+import java.awt.SystemColor;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class ProjectReport extends JDialog {
 
@@ -52,27 +57,35 @@ public class ProjectReport extends JDialog {
 	double paintArea;
 	double tileArea;
 	double trimArea;
+	private JTextArea paintAreaTextArea;
+	private JTextArea tileAreaTextArea;
+	private JTextArea trimAreaTextArea;
+	private JLabel lblMaterialAreaLabel;
 
 	public ProjectReport(Project p) {
+		setBackground(SystemColor.control);
+		setFont(new Font("Dialog", Font.BOLD, 12));
+		getContentPane().setFont(new Font("Tahoma", Font.BOLD, 12));
 		getContentPane().setBackground(new Color(250, 250, 210));
-		setMinimumSize(new Dimension(400, 400));
+		setMinimumSize(new Dimension(600, 400));
 		setLocation(new Point(100, 100));
 
 		this.project = p;
 
-		setTitle("Coverage Calculator - Project Manager");
+		setTitle("Report Manager");
 		// setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 400, 300, 300);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] { 0, 0, 40, 0, 40, 0 };
+		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 40, 0, 40, 0 };
 		gridBagLayout.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 1.0, 1.0, 1.0,
+		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 1.0, 1.0, 1.0, 1.0,
 				Double.MIN_VALUE };
 		gridBagLayout.rowWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 1.0, Double.MIN_VALUE };
 		getContentPane().setLayout(gridBagLayout);
 
 		JLabel lblRoomsListing = new JLabel("Rooms Listing");
+		lblRoomsListing.setFont(new Font("Tahoma", Font.BOLD, 12));
 		GridBagConstraints gbc_lblRoomsListing = new GridBagConstraints();
 		gbc_lblRoomsListing.insets = new Insets(0, 0, 5, 5);
 		gbc_lblRoomsListing.gridx = 1;
@@ -80,16 +93,18 @@ public class ProjectReport extends JDialog {
 		getContentPane().add(lblRoomsListing, gbc_lblRoomsListing);
 
 		lblSurfaceListing = new JLabel("Surface Listing");
+		lblSurfaceListing.setFont(new Font("Tahoma", Font.BOLD, 12));
 		GridBagConstraints gbc_lblSurfaceListing = new GridBagConstraints();
 		gbc_lblSurfaceListing.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSurfaceListing.gridx = 2;
+		gbc_lblSurfaceListing.gridx = 3;
 		gbc_lblSurfaceListing.gridy = 0;
 		getContentPane().add(lblSurfaceListing, gbc_lblSurfaceListing);
 
 		lblCutoutListing = new JLabel("Cutout Listing");
+		lblCutoutListing.setFont(new Font("Tahoma", Font.BOLD, 12));
 		GridBagConstraints gbc_lblCutoutListing = new GridBagConstraints();
 		gbc_lblCutoutListing.insets = new Insets(0, 0, 5, 5);
-		gbc_lblCutoutListing.gridx = 3;
+		gbc_lblCutoutListing.gridx = 4;
 		gbc_lblCutoutListing.gridy = 0;
 		getContentPane().add(lblCutoutListing, gbc_lblCutoutListing);
 
@@ -108,7 +123,7 @@ public class ProjectReport extends JDialog {
 		gbc_surfaceListingTextArea.anchor = GridBagConstraints.NORTH;
 		gbc_surfaceListingTextArea.insets = new Insets(0, 0, 5, 5);
 		gbc_surfaceListingTextArea.fill = GridBagConstraints.HORIZONTAL;
-		gbc_surfaceListingTextArea.gridx = 2;
+		gbc_surfaceListingTextArea.gridx = 3;
 		gbc_surfaceListingTextArea.gridy = 1;
 		getContentPane()
 				.add(surfaceListingTextArea, gbc_surfaceListingTextArea);
@@ -118,25 +133,36 @@ public class ProjectReport extends JDialog {
 		gbc_cutoutListingTextArea.anchor = GridBagConstraints.NORTH;
 		gbc_cutoutListingTextArea.insets = new Insets(0, 0, 5, 5);
 		gbc_cutoutListingTextArea.fill = GridBagConstraints.HORIZONTAL;
-		gbc_cutoutListingTextArea.gridx = 3;
+		gbc_cutoutListingTextArea.gridx = 4;
 		gbc_cutoutListingTextArea.gridy = 1;
 		getContentPane().add(cutoutListingTextArea, gbc_cutoutListingTextArea);
+		
+		lblMaterialAreaLabel = new JLabel("Total Area/Length");
+		lblMaterialAreaLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		GridBagConstraints gbc_lblMaterialAreaLabel = new GridBagConstraints();
+		gbc_lblMaterialAreaLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblMaterialAreaLabel.gridx = 2;
+		gbc_lblMaterialAreaLabel.gridy = 2;
+		getContentPane().add(lblMaterialAreaLabel, gbc_lblMaterialAreaLabel);
 
 		JLabel lblAmountNeeded = new JLabel("Amount Needed");
+		lblAmountNeeded.setFont(new Font("Tahoma", Font.BOLD, 12));
 		GridBagConstraints gbc_lblAmountNeeded = new GridBagConstraints();
 		gbc_lblAmountNeeded.insets = new Insets(0, 0, 5, 5);
-		gbc_lblAmountNeeded.gridx = 2;
+		gbc_lblAmountNeeded.gridx = 3;
 		gbc_lblAmountNeeded.gridy = 2;
 		getContentPane().add(lblAmountNeeded, gbc_lblAmountNeeded);
 
 		JLabel lblTotalCost = new JLabel("Material Cost");
+		lblTotalCost.setFont(new Font("Tahoma", Font.BOLD, 12));
 		GridBagConstraints gbc_lblTotalCost = new GridBagConstraints();
 		gbc_lblTotalCost.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTotalCost.gridx = 3;
+		gbc_lblTotalCost.gridx = 4;
 		gbc_lblTotalCost.gridy = 2;
 		getContentPane().add(lblTotalCost, gbc_lblTotalCost);
 
 		JLabel lblTotalPaintNeeded = new JLabel("Paint");
+		lblTotalPaintNeeded.setFont(new Font("Tahoma", Font.BOLD, 12));
 		GridBagConstraints gbc_lblTotalPaintNeeded = new GridBagConstraints();
 		gbc_lblTotalPaintNeeded.fill = GridBagConstraints.VERTICAL;
 		gbc_lblTotalPaintNeeded.anchor = GridBagConstraints.EAST;
@@ -144,12 +170,20 @@ public class ProjectReport extends JDialog {
 		gbc_lblTotalPaintNeeded.gridx = 1;
 		gbc_lblTotalPaintNeeded.gridy = 3;
 		getContentPane().add(lblTotalPaintNeeded, gbc_lblTotalPaintNeeded);
+		
+		paintAreaTextArea = new JTextArea();
+		GridBagConstraints gbc_paintAreaTextArea = new GridBagConstraints();
+		gbc_paintAreaTextArea.insets = new Insets(0, 0, 5, 5);
+		gbc_paintAreaTextArea.fill = GridBagConstraints.BOTH;
+		gbc_paintAreaTextArea.gridx = 2;
+		gbc_paintAreaTextArea.gridy = 3;
+		getContentPane().add(paintAreaTextArea, gbc_paintAreaTextArea);
 
 		paintAmountTextField = new JTextArea();
 		GridBagConstraints gbc_paintAmountTextField = new GridBagConstraints();
 		gbc_paintAmountTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_paintAmountTextField.fill = GridBagConstraints.BOTH;
-		gbc_paintAmountTextField.gridx = 2;
+		gbc_paintAmountTextField.gridx = 3;
 		gbc_paintAmountTextField.gridy = 3;
 		getContentPane().add(paintAmountTextField, gbc_paintAmountTextField);
 		paintAmountTextField.setColumns(10);
@@ -158,24 +192,33 @@ public class ProjectReport extends JDialog {
 		GridBagConstraints gbc_paintCostTextField = new GridBagConstraints();
 		gbc_paintCostTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_paintCostTextField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_paintCostTextField.gridx = 3;
+		gbc_paintCostTextField.gridx = 4;
 		gbc_paintCostTextField.gridy = 3;
 		getContentPane().add(paintCostTextField, gbc_paintCostTextField);
 		paintCostTextField.setColumns(10);
 
 		JLabel lblTotalTileNeeded = new JLabel("Tile");
+		lblTotalTileNeeded.setFont(new Font("Tahoma", Font.BOLD, 12));
 		GridBagConstraints gbc_lblTotalTileNeeded = new GridBagConstraints();
 		gbc_lblTotalTileNeeded.anchor = GridBagConstraints.EAST;
 		gbc_lblTotalTileNeeded.insets = new Insets(0, 0, 5, 5);
 		gbc_lblTotalTileNeeded.gridx = 1;
 		gbc_lblTotalTileNeeded.gridy = 4;
 		getContentPane().add(lblTotalTileNeeded, gbc_lblTotalTileNeeded);
+		
+		tileAreaTextArea = new JTextArea();
+		GridBagConstraints gbc_tileAreaTextArea = new GridBagConstraints();
+		gbc_tileAreaTextArea.insets = new Insets(0, 0, 5, 5);
+		gbc_tileAreaTextArea.fill = GridBagConstraints.BOTH;
+		gbc_tileAreaTextArea.gridx = 2;
+		gbc_tileAreaTextArea.gridy = 4;
+		getContentPane().add(tileAreaTextArea, gbc_tileAreaTextArea);
 
 		tileAmountTextField = new JTextArea();
 		GridBagConstraints gbc_tileAmountTextField = new GridBagConstraints();
 		gbc_tileAmountTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_tileAmountTextField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tileAmountTextField.gridx = 2;
+		gbc_tileAmountTextField.gridx = 3;
 		gbc_tileAmountTextField.gridy = 4;
 		getContentPane().add(tileAmountTextField, gbc_tileAmountTextField);
 		tileAmountTextField.setColumns(10);
@@ -184,24 +227,33 @@ public class ProjectReport extends JDialog {
 		GridBagConstraints gbc_tileCostTextField = new GridBagConstraints();
 		gbc_tileCostTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_tileCostTextField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_tileCostTextField.gridx = 3;
+		gbc_tileCostTextField.gridx = 4;
 		gbc_tileCostTextField.gridy = 4;
 		getContentPane().add(tileCostTextField, gbc_tileCostTextField);
 		tileCostTextField.setColumns(10);
 
 		JLabel lblTotalTrimNeeded = new JLabel("Trim");
+		lblTotalTrimNeeded.setFont(new Font("Tahoma", Font.BOLD, 12));
 		GridBagConstraints gbc_lblTotalTrimNeeded = new GridBagConstraints();
 		gbc_lblTotalTrimNeeded.anchor = GridBagConstraints.EAST;
 		gbc_lblTotalTrimNeeded.insets = new Insets(0, 0, 5, 5);
 		gbc_lblTotalTrimNeeded.gridx = 1;
 		gbc_lblTotalTrimNeeded.gridy = 5;
 		getContentPane().add(lblTotalTrimNeeded, gbc_lblTotalTrimNeeded);
+		
+		trimAreaTextArea = new JTextArea();
+		GridBagConstraints gbc_trimAreaTextArea = new GridBagConstraints();
+		gbc_trimAreaTextArea.insets = new Insets(0, 0, 5, 5);
+		gbc_trimAreaTextArea.fill = GridBagConstraints.BOTH;
+		gbc_trimAreaTextArea.gridx = 2;
+		gbc_trimAreaTextArea.gridy = 5;
+		getContentPane().add(trimAreaTextArea, gbc_trimAreaTextArea);
 
 		trimAmountTextField = new JTextArea();
 		GridBagConstraints gbc_trimAmountTextField = new GridBagConstraints();
 		gbc_trimAmountTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_trimAmountTextField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_trimAmountTextField.gridx = 2;
+		gbc_trimAmountTextField.gridx = 3;
 		gbc_trimAmountTextField.gridy = 5;
 		getContentPane().add(trimAmountTextField, gbc_trimAmountTextField);
 		trimAmountTextField.setColumns(10);
@@ -210,16 +262,17 @@ public class ProjectReport extends JDialog {
 		GridBagConstraints gbc_trimCostTextField = new GridBagConstraints();
 		gbc_trimCostTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_trimCostTextField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_trimCostTextField.gridx = 3;
+		gbc_trimCostTextField.gridx = 4;
 		gbc_trimCostTextField.gridy = 5;
 		getContentPane().add(trimCostTextField, gbc_trimCostTextField);
 		trimCostTextField.setColumns(10);
 
 		JLabel lblTotalCostOf = new JLabel("Total Cost of Project");
+		lblTotalCostOf.setFont(new Font("Tahoma", Font.BOLD, 12));
 		GridBagConstraints gbc_lblTotalCostOf = new GridBagConstraints();
 		gbc_lblTotalCostOf.anchor = GridBagConstraints.EAST;
 		gbc_lblTotalCostOf.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTotalCostOf.gridx = 2;
+		gbc_lblTotalCostOf.gridx = 3;
 		gbc_lblTotalCostOf.gridy = 7;
 		getContentPane().add(lblTotalCostOf, gbc_lblTotalCostOf);
 
@@ -227,7 +280,7 @@ public class ProjectReport extends JDialog {
 		GridBagConstraints gbc_totalCostProjectTextField = new GridBagConstraints();
 		gbc_totalCostProjectTextField.insets = new Insets(0, 0, 5, 5);
 		gbc_totalCostProjectTextField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_totalCostProjectTextField.gridx = 3;
+		gbc_totalCostProjectTextField.gridx = 4;
 		gbc_totalCostProjectTextField.gridy = 7;
 		getContentPane().add(totalCostProjectTextField,
 				gbc_totalCostProjectTextField);
@@ -285,7 +338,7 @@ public class ProjectReport extends JDialog {
 					else if (s.getSurfaceType() == 0) {
 
 						trimCutoutTotal = trimCutout(s.getCutoutAtIndex(j));
-						trimTotalAmount = trimTotalAmount + (trimArea - trimCutoutTotal);
+						trimTotalAmount = trimTotalAmount + (trimArea + trimCutoutTotal);
 
 					}
 
@@ -299,22 +352,83 @@ public class ProjectReport extends JDialog {
 			} // End of for loops
 
 			// calculations and display of paint amount and cost
-			paintTotalAmount = paintTotalAmount / calcPaint;
-			paintTotalCost = paintTotalAmount * 9.95;
-			paintAmountTextField.append(Double.toString(Math.ceil(paintTotalAmount)) + " gals");
-			paintCostTextField.append("$"+ Double.toString(Math.ceil(paintTotalCost)) + "0");
+			
+		paintTotalAmount*=100;
+		paintTotalAmount = (int) paintTotalAmount;
+		paintTotalAmount/=100;
+		
+
+		
+
+		
+		
+			double paintTotalAmountGals = paintTotalAmount / calcPaint;
+			paintTotalCost =  Math.ceil(paintTotalAmountGals) * 9.95;
+			
+			//converts to 2 decimal places
+			paintTotalCost*=100;
+			paintTotalCost = (int)paintTotalCost;
+			paintTotalCost/=100;
+			NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.US);
+			String ptc1 = nf.format(paintTotalCost);
+			
+			paintTotalAmount*=100;
+			paintTotalAmount = (int) paintTotalAmount;
+			paintTotalAmount/=100;			
+			
+			
+			paintAmountTextField.append(Double.toString( Math.ceil(paintTotalAmountGals)) + " gals");
+			paintCostTextField.append(ptc1);
+			paintAreaTextArea.append(Double.toString(paintTotalAmount) + " Sqft"); 
+			
 
 			// calculations and display of tile amount and cost
 			tileTotalAmount = tileTotalAmount / calcTile;
-			tileTotalCost = tileTotalAmount * 9.95;
-			tileAmountTextField.append(Double.toString(Math.ceil(tileTotalAmount)) + " Sqft");
-			tileCostTextField.append("$"+ Double.toString(Math.ceil(tileTotalCost)) + "0");
+			tileTotalCost = Math.ceil(tileTotalAmount) * 9.95;
+			
+			//converts to 2 decimal places
+			tileTotalCost*=100;
+			tileTotalCost = (int) tileTotalCost;
+			tileTotalCost/=100;
+			NumberFormat nf1 = NumberFormat.getCurrencyInstance(Locale.US);
+			String ttc1 = nf1.format(tileTotalCost); 
+			
+			
+			tileTotalAmount*=100;
+			tileTotalAmount = (int) tileTotalAmount;
+			tileTotalAmount/=100;
+			
+			
+			tileAmountTextField.append(Double.toString(Math.ceil(tileTotalAmount)) + " Tiles");
+			tileCostTextField.append(ttc1);
+			tileAreaTextArea.append(Double.toString(tileTotalAmount) + " Sqft"); 
 
 			// calculations and display of trim amount and cost
-			trimTotalAmount = (trimTotalAmount / 12) / calcTrim;
-			trimTotalCost = trimTotalAmount * 9.95;
+			trimTotalAmount = (trimTotalAmount) ;
+			trimTotalCost = Math.ceil(trimTotalAmount) * 9.95;
+			
+			//converts to 2 decimal places
+			trimTotalCost*=100;
+			trimTotalCost = (int) trimTotalCost;
+			trimTotalCost/=100;
+			NumberFormat nf2 = NumberFormat.getCurrencyInstance(Locale.US);
+			String ttc = nf2.format(trimTotalCost); 	
+			
+			trimTotalAmount*=100;
+			trimTotalAmount = (int) trimTotalAmount;
+			trimTotalAmount/=100;
+			
 			trimAmountTextField.append(Double.toString(Math.ceil(trimTotalAmount)) + " feet");
-			trimCostTextField.append("$"+ Double.toString(Math.ceil(trimTotalCost)) + "0");
+			trimCostTextField.append(ttc);
+			trimAreaTextArea.append(Double.toString(trimTotalAmount) + " ft"); 
+			
+			double projectCostTotal = (trimTotalCost + paintTotalCost + tileTotalCost); 
+			projectCostTotal*=100;
+			projectCostTotal = (int) projectCostTotal;
+			projectCostTotal/=100;
+			NumberFormat nf3 = NumberFormat.getCurrencyInstance(Locale.US);
+			String ptc = nf3.format(projectCostTotal); 
+			totalCostProjectTextField.append(ptc); 
 		
 
 	} // End of ProjectReport Class

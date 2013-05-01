@@ -12,7 +12,6 @@ public class ProjectManager extends JFrame {
 	JFrame thisFrame = this;
 	JList roomListBox;
 	JButton newRoomButton;
-	JButton modifyRoomButton;
 	JButton deleteRoomButton;
 	JButton createReportButton;
 	
@@ -56,15 +55,6 @@ public class ProjectManager extends JFrame {
 		gbc_newRoomButton.gridy = 0;
 		getContentPane().add(newRoomButton, gbc_newRoomButton);
 		
-		modifyRoomButton = new JButton("Modify Room");
-		modifyRoomButton.addActionListener(new ModifyRoomListener());
-		GridBagConstraints gbc_modifyRoomButton = new GridBagConstraints();
-		gbc_modifyRoomButton.fill = GridBagConstraints.HORIZONTAL;
-		gbc_modifyRoomButton.insets = new Insets(0, 0, 5, 0);
-		gbc_modifyRoomButton.gridx = 1;
-		gbc_modifyRoomButton.gridy = 1;
-		getContentPane().add(modifyRoomButton, gbc_modifyRoomButton);
-		
 		deleteRoomButton = new JButton("Delete Room");
 		deleteRoomButton.addActionListener(new DeleteRoomListener());
 		GridBagConstraints gbc_deleteRoomButton = new GridBagConstraints();
@@ -106,20 +96,6 @@ public class ProjectManager extends JFrame {
 			updateList();
 		}
 	}
-	/**
-	 * listens for button press of the modify room button
-	 */
-	private class ModifyRoomListener implements ActionListener {
-		/**
-		 * opens the selected room for modification in the room manager
-		 */
-		public void actionPerformed(ActionEvent e) {
-			RoomManager dialog = new RoomManager(thisFrame, project.getRoomAtIndex(roomListBox.getSelectedIndex()));
-			Room result = dialog.showDialog();
-			project.replaceRoom(roomListBox.getSelectedIndex(), result);
-			updateList();
-		}
-	}
 	
 	/**
 	 * listens for button press of the modify room button
@@ -131,7 +107,7 @@ public class ProjectManager extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			if (JOptionPane.showConfirmDialog(
 					null,
-					"Are you sure you want to delete the selected surface?",
+					"Are you sure you want to delete the selected room?",
 					"Delete",
 					JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION) {
 					project.removeRoom(roomListBox.getSelectedIndex());

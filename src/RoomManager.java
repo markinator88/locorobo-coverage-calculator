@@ -95,15 +95,6 @@ public class RoomManager extends JDialog {
 		gbc_newSurfaceButton.gridy = 1;
 		getContentPane().add(newSurfaceButton, gbc_newSurfaceButton);
 		
-		JButton modifySurfaceButton = new JButton("Modify Surface");
-		modifySurfaceButton.addActionListener(new ModifySurfaceListener());
-		GridBagConstraints gbc_modifySurfaceButton = new GridBagConstraints();
-		gbc_modifySurfaceButton.fill = GridBagConstraints.HORIZONTAL;
-		gbc_modifySurfaceButton.insets = new Insets(0, 0, 5, 0);
-		gbc_modifySurfaceButton.gridx = 1;
-		gbc_modifySurfaceButton.gridy = 2;
-		getContentPane().add(modifySurfaceButton, gbc_modifySurfaceButton);
-		
 		JButton deleteSurfaceButton = new JButton("Delete Surface");
 		deleteSurfaceButton.addActionListener(new DeleteSurfaceListener());
 		GridBagConstraints gbc_deleteSurfaceButton = new GridBagConstraints();
@@ -167,21 +158,6 @@ public class RoomManager extends JDialog {
 			SurfaceManager dialog = new SurfaceManager(thisDialog, new Surface());
 			Surface result = dialog.showDialog();
 			workingRoom.addSurface(result);
-			updateList();
-		}
-	}
-	
-	/**
-	 * listens for button press of the modify surface button
-	 */
-	private class ModifySurfaceListener implements ActionListener {
-		/**
-		 * opens the selected surface for modification
-		 */
-		public void actionPerformed(ActionEvent e) {
-			SurfaceManager dialog = new SurfaceManager(thisDialog , workingRoom.getSurfaceAtIndex(surfaceListBox.getSelectedIndex()));
-			Surface result = dialog.showDialog();
-			workingRoom.replaceSurface(surfaceListBox.getSelectedIndex(), result);
 			updateList();
 		}
 	}
