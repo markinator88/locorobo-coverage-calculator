@@ -32,7 +32,7 @@ public class SurfaceManager extends JDialog {
 	private JList cutoutTextArea;
 	private JTextField surfaceNameTextField;
 	int surfaceType;
-	String surfaceTypeReader;
+	//String surfaceTypeReader;
 	int cutoutType;
 	private Double surfaceXdim;
 	private Double surfaceYdim;
@@ -360,14 +360,15 @@ public class SurfaceManager extends JDialog {
 		}
 
 		private void surfaceTypeFinder() {
-			surfaceTypeReader = (MaterialComboBox.getSelectedItem().toString());
-			if (surfaceTypeReader.equals("Paint")) {
+			String surfaceTypeReader = (MaterialComboBox.getSelectedItem().toString());
+			System.out.println(surfaceTypeReader);
+			if (surfaceTypeReader.equals("paint")) {
 				surfaceType = TYPE_PAINT;
-			} else if (surfaceTypeReader.equals("Tile")) {
+			} else if (surfaceTypeReader.equals("tile")) {
 				surfaceType = TYPE_TILE;
 			}
 
-			else if (surfaceTypeReader.equals("Trim")) {
+			else if (surfaceTypeReader.equals("trim")) {
 				surfaceType = TYPE_TRIM;
 			}
 
