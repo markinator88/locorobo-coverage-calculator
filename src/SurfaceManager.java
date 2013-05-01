@@ -98,7 +98,7 @@ public class SurfaceManager extends JDialog {
 		gbc_lblChooseMaterial.gridy = 3;
 		getContentPane().add(lblChooseMaterial, gbc_lblChooseMaterial);
 
-		lblSurfaceSize = new JLabel("Surface Size (inches)");
+		lblSurfaceSize = new JLabel("Surface Size");
 		lblSurfaceSize.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblSurfaceSize = new GridBagConstraints();
 		gbc_lblSurfaceSize.insets = new Insets(0, 0, 5, 5);
@@ -143,7 +143,7 @@ public class SurfaceManager extends JDialog {
 		gbc_lblChooseCutoutType.gridy = 5;
 		getContentPane().add(lblChooseCutoutType, gbc_lblChooseCutoutType);
 
-		lblCutoutSize = new JLabel("Cutout Size (inches)");
+		lblCutoutSize = new JLabel("Cutout Size");
 		lblCutoutSize.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblCutoutSize = new GridBagConstraints();
 		gbc_lblCutoutSize.anchor = GridBagConstraints.SOUTH;
